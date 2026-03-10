@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — FocusFeed</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+<div class="auth-page">
+
+  <div class="auth-panel-left">
+    <div class="auth-grid-lines"></div>
+    <a href="/" class="auth-brand">Focus<span>Feed</span></a>
+    <p class="auth-tagline">Join thousands of readers who get news that matters — filtered by what they actually care about.</p>
+    <div class="auth-features">
+      <div class="auth-feature"><div class="auth-feature-icon">✦</div>Free to join, always</div>
+      <div class="auth-feature"><div class="auth-feature-icon">🎯</div>Pick your interests in seconds</div>
+      <div class="auth-feature"><div class="auth-feature-icon">📰</div>Personalized feed instantly</div>
+      <div class="auth-feature"><div class="auth-feature-icon">🔒</div>Secure JWT authentication</div>
+    </div>
+  </div>
+
+  <div class="auth-panel-right">
+    <div class="auth-form-box">
+      <h2>Create your account</h2>
+      <p class="auth-subtitle">Start reading personalized news in minutes</p>
+
+      <div style="margin-bottom:4px">
+        <label class="form-label">I am registering as</label>
+      </div>
+      <div class="role-selector">
+        <div class="role-card selected" id="role-user" onclick="selectRole('user')">
+          <div class="role-card-icon">👤</div>
+          <div class="role-card-title">Regular User</div>
+          <div class="role-card-desc">Read & bookmark news</div>
+        </div>
+        <div class="role-card" id="role-admin" onclick="selectRole('admin')">
+          <div class="role-card-icon">🛡️</div>
+          <div class="role-card-title">Admin</div>
+          <div class="role-card-desc">Manage the platform</div>
+        </div>
+      </div>
+
+      <div class="admin-notice" id="admin-notice">
+        🔐 Admin registration requires a valid access code. Contact your system administrator.
+      </div>
+
+      <form id="signup-form">
+        <div class="form-group">
+          <label class="form-label" for="name">Full name</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Ahmad Khan" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email address</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-group">
+            <input type="password" id="password" name="password" class="form-control" placeholder="Min. 6 characters" required autocomplete="new-password">
+            <button type="button" class="input-toggle" tabindex="-1">👁</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="confirm">Confirm password</label>
+          <div class="input-group">
+            <input type="password" id="confirm" name="confirm" class="form-control" placeholder="Repeat password" required autocomplete="new-password">
+            <button type="button" class="input-toggle" tabindex="-1">👁</button>
+          </div>
+        </div>
+        <div class="form-group admin-code-field" id="admin-code-field">
+          <label class="form-label" for="adminCode">Admin Access Code</label>
+          <div class="input-group">
+            <input type="password" id="adminCode" name="adminCode" class="form-control" placeholder="Enter admin access code">
+            <button type="button" class="input-toggle" tabindex="-1">👁</button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px">Create Account</button>
+        <p style="font-size:0.78rem;color:var(--text-muted);text-align:center;margin-top:12px">
+          By signing up you agree to our <a href="#" style="color:var(--violet-bright)">Terms of Service</a>.
+        </p>
+      </form>
+
+      <div class="auth-switch">
+        Already have an account? <a href="/login.html">Sign in</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script>
+  function selectRole(role) {
+    document.getElementById('role-user').classList.toggle('selected', role === 'user');
+    document.getElementById('role-admin').classList.toggle('selected', role === 'admin');
+    document.getElementById('admin-code-field').classList.toggle('visible', role === 'admin');
+    document.getElementById('admin-notice').classList.toggle('visible', role === 'admin');
+    document.getElementById('adminCode').required = role === 'admin';
+    window._selectedRole = role;
+  }
+  window._selectedRole = 'user';
+  selectRole('user');
+</script>
+<script>initSignupPage();</script>
+</body>
+</html>

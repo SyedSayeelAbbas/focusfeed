@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Users — FocusFeed Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="/admin-dashboard.html" class="navbar-brand">Focus<span>Feed</span> <span style="font-size:0.65rem;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.5);margin-left:6px">ADMIN</span></a>
+    <div class="navbar-links">
+      <a href="/dashboard.html" class="hide-mobile">← User View</a>
+      <div id="nav-user-avatar" class="sidebar-avatar">A</div>
+    </div>
+  </div>
+</nav>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-brand">
+      <h2>Admin Panel</h2>
+      <p>FocusFeed Control Center</p>
+    </div>
+    <a href="/admin-dashboard.html" class="admin-nav-link">📊 Dashboard</a>
+    <a href="/manage-user.html"     class="admin-nav-link active">👥 Manage Users</a>
+    <a href="/reports.html"          class="admin-nav-link">📈 Reports</a>
+    <div class="admin-sidebar-bottom">
+      <a href="/dashboard.html" class="admin-nav-link">👁️ User View</a>
+      <button onclick="Auth.logout()" class="admin-nav-link admin-signout-btn">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="admin-content">
+    <div class="admin-page-header">
+      <div>
+        <h1>Manage Users</h1>
+        <p style="font-size:0.85rem;color:var(--text-soft);margin-top:4px"><span id="user-count">0</span> total users</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <div class="search-bar" style="max-width:260px">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="user-search" placeholder="Search by name or email…">
+        </div>
+        <button onclick="loadUsers()" class="btn btn-outline btn-sm">↻ Refresh</button>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3>All Users</h3>
+        <span class="badge badge-amber">Toggle to activate/deactivate</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Role</th>
+              <th>Interests</th>
+              <th>Joined</th>
+              <th>Status</th>
+              <th>Toggle</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody">
+            <tr><td colspan="6" style="text-align:center;padding:32px"><div class="spinner" style="width:28px;height:28px;margin:0 auto;border-width:2px"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/admin.js"></script>
+<script>initManageUsers();</script>
+</body>
+</html>

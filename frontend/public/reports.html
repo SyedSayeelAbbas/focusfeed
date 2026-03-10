@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports — FocusFeed Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="/admin-dashboard.html" class="navbar-brand">Focus<span>Feed</span> <span style="font-size:0.65rem;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.5);margin-left:6px">ADMIN</span></a>
+    <div class="navbar-links">
+      <a href="/dashboard.html" class="hide-mobile">← User View</a>
+      <div id="nav-user-avatar" class="sidebar-avatar">A</div>
+    </div>
+  </div>
+</nav>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-brand">
+      <h2>Admin Panel</h2>
+      <p>FocusFeed Control Center</p>
+    </div>
+    <a href="/admin-dashboard.html" class="admin-nav-link">📊 Dashboard</a>
+    <a href="/manage-user.html"     class="admin-nav-link">👥 Manage Users</a>
+    <a href="/reports.html"          class="admin-nav-link active">📈 Reports</a>
+    <div class="admin-sidebar-bottom">
+      <a href="/dashboard.html" class="admin-nav-link">👁️ User View</a>
+      <button onclick="Auth.logout()" class="admin-nav-link admin-signout-btn">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="admin-content">
+    <div class="admin-page-header">
+      <h1>Platform Reports</h1>
+      <button onclick="loadReports()" class="btn btn-outline btn-sm">↻ Refresh</button>
+    </div>
+
+    <!-- Summary Metrics -->
+    <div class="metrics-grid" style="margin-bottom:24px">
+      <div class="metric-card">
+        <div class="metric-icon">👥</div>
+        <div class="metric-value" id="report-total">—</div>
+        <div class="metric-label">Total Users</div>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-icon">✅</div>
+        <div class="metric-value" id="report-active">—</div>
+        <div class="metric-label">Active</div>
+      </div>
+      <div class="metric-card red">
+        <div class="metric-icon">🚫</div>
+        <div class="metric-value" id="report-inactive">—</div>
+        <div class="metric-label">Inactive</div>
+      </div>
+      <div class="metric-card blue">
+        <div class="metric-icon">🆕</div>
+        <div class="metric-value" id="report-new-week">—</div>
+        <div class="metric-label">New This Week</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🔖</div>
+        <div class="metric-value" id="report-bookmarks">—</div>
+        <div class="metric-label">Total Bookmarks</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <!-- Top Interests -->
+      <div class="table-card">
+        <div class="table-card-header">
+          <h3>Top Interests</h3>
+          <span class="badge badge-amber">By user count</span>
+        </div>
+        <div class="interest-bar-row" id="interest-bars">
+          <div class="spinner" style="width:28px;height:28px;margin:20px auto;border-width:2px"></div>
+        </div>
+      </div>
+
+      <!-- Recent Signups -->
+      <div class="table-card">
+        <div class="table-card-header">
+          <h3>Recent Signups</h3>
+          <span class="badge badge-amber">Latest 8</span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Status</th><th>Joined</th></tr>
+            </thead>
+            <tbody id="recent-users-tbody">
+              <tr><td colspan="4" style="text-align:center;padding:24px"><div class="spinner" style="width:24px;height:24px;margin:0 auto;border-width:2px"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/admin.js"></script>
+<script>initReportsPage();</script>
+</body>
+</html>

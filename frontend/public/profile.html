@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile — FocusFeed</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="/dashboard.html" class="navbar-brand">Focus<span>Feed</span></a>
+    <div class="navbar-links">
+      <div id="nav-user-avatar" class="sidebar-avatar">U</div>
+    </div>
+  </div>
+</nav>
+
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Menu</div>
+      <a href="/dashboard.html" class="sidebar-link"><span class="link-icon">📰</span> My Feed</a>
+      <a href="/bookmarks.html" class="sidebar-link"><span class="link-icon">🔖</span> Bookmarks</a>
+      <a href="/profile.html"   class="sidebar-link active"><span class="link-icon">👤</span> Profile</a>
+    </div>
+    <div class="sidebar-user">
+      <button onclick="Auth.logout()" class="sidebar-link" style="width:100%">
+        <span class="link-icon">🚪</span> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">My Profile</h1>
+    </div>
+
+    <div class="profile-layout">
+      <!-- Left: Profile Card -->
+      <div>
+        <div class="card profile-card">
+          <div class="profile-avatar-wrap" id="profile-avatar">U</div>
+          <div class="profile-name"  id="profile-name">Loading…</div>
+          <div class="profile-email" id="profile-email"></div>
+          <div id="profile-role"></div>
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <div class="profile-stat-value" id="interest-stat">0</div>
+              <div class="profile-stat-label">Interests</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value" id="bookmark-stat">0</div>
+              <div class="profile-stat-label">Bookmarks</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Tabs -->
+      <div>
+        <div class="profile-tabs">
+          <button class="profile-tab" data-panel="panel-edit">Edit Profile</button>
+          <button class="profile-tab" data-panel="panel-interests">Interests</button>
+          <button class="profile-tab" data-panel="panel-password">Password</button>
+        </div>
+
+        <!-- Edit Profile Panel -->
+        <div id="panel-edit" class="profile-panel card" style="padding:28px">
+          <h3 style="margin-bottom:24px">Personal Information</h3>
+          <form id="edit-profile-form">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" name="name" class="form-control" placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Language</label>
+              <select name="language" class="form-control">
+                <option value="en">English</option>
+                <option value="ar">Arabic</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="es">Spanish</option>
+                <option value="ur">Urdu</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Theme</label>
+              <select name="theme" class="form-control">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+
+        <!-- Interests Panel -->
+        <div id="panel-interests" class="profile-panel card" style="padding:28px;display:none">
+          <h3 style="margin-bottom:8px">Your Interests</h3>
+          <p style="font-size:0.85rem;margin-bottom:24px">Select the topics you want to follow.</p>
+          <div class="interests-grid" id="interests-edit-grid" style="max-width:100%;margin-bottom:24px"></div>
+          <button id="save-interests-btn" class="btn btn-primary" onclick="saveProfileInterests()">Save Interests</button>
+        </div>
+
+        <!-- Password Panel -->
+        <div id="panel-password" class="profile-panel card" style="padding:28px;display:none">
+          <h3 style="margin-bottom:24px">Change Password</h3>
+          <form id="change-password-form">
+            <div class="form-group">
+              <label class="form-label">Current Password</label>
+              <input type="password" name="currentPassword" class="form-control" placeholder="••••••••" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">New Password</label>
+              <input type="password" name="newPassword" class="form-control" placeholder="Min. 6 characters" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm New Password</label>
+              <input type="password" name="confirmPassword" class="form-control" placeholder="Repeat new password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Change Password</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/profile.js"></script>
+<script>initProfilePage();</script>
+</body>
+</html>

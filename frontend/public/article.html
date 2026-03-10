@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article — FocusFeed</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="/dashboard.html" class="navbar-brand">Focus<span>Feed</span></a>
+    <div class="navbar-links">
+      <a href="/dashboard.html" class="hide-mobile" style="color:rgba(255,255,255,0.7);font-size:0.88rem">← Back to Feed</a>
+      <div id="nav-user-avatar" class="sidebar-avatar" style="cursor:pointer" onclick="window.location.href='/profile.html'">U</div>
+    </div>
+  </div>
+</nav>
+
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Menu</div>
+      <a href="/dashboard.html" class="sidebar-link"><span class="link-icon">📰</span> My Feed</a>
+      <a href="/bookmarks.html" class="sidebar-link"><span class="link-icon">🔖</span> Bookmarks</a>
+      <a href="/profile.html"   class="sidebar-link"><span class="link-icon">👤</span> Profile</a>
+    </div>
+    <div class="sidebar-user">
+      <button onclick="Auth.logout()" class="sidebar-link" style="width:100%">
+        <span class="link-icon">🚪</span> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="article-view">
+      <div class="article-view-header">
+        <div class="article-view-category" id="article-category"></div>
+        <h1 class="article-view-title" id="article-title">Loading…</h1>
+        <div class="article-view-meta">
+          <span class="article-view-source" id="article-source"></span>
+          <span class="article-view-date"   id="article-date"></span>
+        </div>
+      </div>
+
+      <div id="article-image-wrap"></div>
+
+      <div class="article-view-body" id="article-body"></div>
+
+      <a href="#" id="article-link" class="article-view-link" target="_blank" rel="noopener" style="display:none">
+        Read full article on source ↗
+      </a>
+
+      <div class="article-view-actions">
+        <button id="bookmark-btn" class="btn btn-outline">🔖 Bookmark</button>
+        <button id="share-btn"    class="btn btn-outline">↗ Share</button>
+        <a href="/dashboard.html" class="btn btn-outline">← Back to Feed</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/article.js"></script>
+<script>initArticlePage();</script>
+</body>
+</html>

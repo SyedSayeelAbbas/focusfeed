@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pick Your Interests — FocusFeed</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+
+<!-- Simple Nav -->
+<nav class="navbar">
+  <div class="container">
+    <a href="/" class="navbar-brand">Focus<span>Feed</span></a>
+    <div class="navbar-links">
+      <button onclick="Auth.logout()" class="btn-nav-cta" style="background:transparent;color:rgba(255,255,255,0.6);font-size:0.85rem">Sign Out</button>
+    </div>
+  </div>
+</nav>
+
+<div class="interests-page">
+  <div class="interests-header">
+    <h1>What are you into?</h1>
+    <p>Select at least one interest and we'll tailor your feed to match. You can always change this later.</p>
+  </div>
+
+  <div class="interests-progress">
+    <div class="interests-progress-bar" id="interests-progress"></div>
+  </div>
+
+  <div class="interests-grid" id="interests-grid">
+    <!-- chips rendered by JS -->
+  </div>
+
+  <div class="interests-footer">
+    <span class="interests-count" id="selected-count">0 selected</span>
+    <button id="save-interests-btn" class="btn btn-primary" disabled>Continue →</button>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script>initInterestsPage();</script>
+</body>
+</html>
+
+<!-- the dark and light theam is not nice make some unique dark and light 
+theam that should be nice as there is so much light make the professional css as alignment is not nice also -->
+
+<!-- as you have all the backend code that i gave these are all the categories i 
+have in project but only some categories are filtering other are showing general these
+ files are some i think could give you why not every these categories are filtering only some are happening like scince technology etc -->

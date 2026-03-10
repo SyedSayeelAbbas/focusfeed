@@ -1,0 +1,571 @@
+/* ============================================
+   FOCUSFEED - Dashboard & Content Styles
+   Dashboard, Bookmarks, Article, Profile
+   ============================================ */
+
+/* ============================================
+   FEED GRID & ARTICLES
+   ============================================ */
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* ============================================
+   ARTICLE CARD
+   Used by buildArticleCard() in utils.js
+   Classes: article-card, article-card-image,
+   article-card-image-placeholder, article-card-body,
+   article-card-meta, article-card-source, article-card-date,
+   article-card-title, article-card-desc, article-card-footer,
+   article-card-actions, btn-icon
+   ============================================ */
+.article-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--violet-light);
+}
+
+.article-card.featured {
+  grid-column: span 2;
+}
+
+/* Card image */
+.article-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: var(--bg-tertiary);
+  display: block;
+}
+
+/* ✅ FIX: was missing — shown when no image URL */
+.article-card-image-placeholder {
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(135deg, var(--violet-pale), var(--bg-tertiary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+/* ✅ FIX: was missing — wraps meta + title + desc */
+.article-card-body {
+  padding: 18px 20px 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ✅ FIX: was missing — source + date row */
+.article-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+}
+
+.article-card-source {
+  font-weight: 600;
+  color: var(--violet-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+}
+
+.article-card-date {
+  color: var(--text-soft);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.article-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ✅ FIX: was missing — description text below title */
+.article-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ✅ FIX: was missing — footer with badge + action buttons */
+.article-card-footer {
+  padding: 10px 20px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-light);
+  margin-top: auto;
+}
+
+/* ✅ FIX: was missing — holds bookmark + open buttons */
+.article-card-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* ✅ FIX: was missing — icon buttons used in cards */
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.btn-icon:hover {
+  background: var(--violet-pale);
+  border-color: var(--violet-soft);
+  color: var(--violet-primary);
+}
+
+.btn-icon.active {
+  background: var(--violet-light);
+  border-color: var(--violet-primary);
+  color: var(--violet-primary);
+}
+
+.btn-icon-danger:hover {
+  background: var(--danger-light);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* Skeleton loading card */
+.article-card-skeleton {
+  height: 300px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-hover) 50%, var(--bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease infinite;
+  border: 1px solid var(--border-light);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================
+   FILTER CHIPS
+   ============================================ */
+.filter-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.filter-chip {
+  padding: 8px 16px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 100px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.filter-chip:hover {
+  border-color: var(--violet-soft);
+  color: var(--violet-primary);
+}
+
+.filter-chip.active {
+  background: var(--violet-primary);
+  border-color: var(--violet-primary);
+  color: #fff;
+}
+
+/* ============================================
+   ARTICLE VIEW PAGE
+   ============================================ */
+.article-view {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.article-view-header {
+  padding: 40px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.article-view-category {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.article-view-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.3;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.article-view-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.article-view-source {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+#article-image-wrap {
+  width: 100%;
+}
+
+#article-image-wrap img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.article-view-body {
+  padding: 40px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.article-view-body p {
+  margin-bottom: 20px;
+}
+
+.article-view-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 40px 40px;
+  padding: 12px 20px;
+  background: var(--violet-pale);
+  color: var(--violet-primary);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.article-view-link:hover {
+  background: var(--violet-primary);
+  color: #fff;
+}
+
+.article-view-actions {
+  display: flex;
+  gap: 12px;
+  padding: 24px 40px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+}
+
+/* ============================================
+   BOOKMARKS
+   ============================================ */
+.bookmarks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 80px 40px;
+  color: var(--text-soft);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  font-size: 1.25rem;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* ============================================
+   PROFILE PAGE
+   ============================================ */
+.profile-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.profile-card {
+  padding: 32px;
+  text-align: center;
+}
+
+.profile-avatar-wrap {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--violet-primary), var(--violet-bright));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 auto 16px;
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+}
+
+.profile-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.profile-email {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  margin-bottom: 12px;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  margin-top: 12px;
+}
+
+.profile-stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--violet-primary);
+}
+
+.profile-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Profile Tabs */
+.profile-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: var(--bg-tertiary);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  width: fit-content;
+}
+
+.profile-tab {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-soft);
+  font-size: 0.88rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.profile-tab:hover {
+  color: var(--text-secondary);
+}
+
+.profile-tab.active {
+  background: var(--bg-card);
+  color: var(--violet-primary);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Interest chips in profile */
+#interests-edit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+#interests-edit-grid .interest-chip {
+  padding: 12px 8px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: var(--bg-secondary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+#interests-edit-grid .interest-chip:hover {
+  border-color: var(--violet-soft);
+  transform: translateY(-2px);
+}
+
+#interests-edit-grid .interest-chip.selected {
+  border-color: var(--violet-primary);
+  background: var(--violet-pale);
+  color: var(--violet-primary);
+  font-weight: 600;
+}
+
+/* Chip icon and label in interest chips */
+.chip-icon {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+.chip-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.chip-check {
+  display: none;
+  font-size: 0.75rem;
+  color: var(--violet-primary);
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.interest-chip.selected .chip-check {
+  display: block;
+}
+
+/* ============================================
+   BADGES — extra variants used in admin + profile
+   ============================================ */
+.badge-success {
+  background: var(--success-light);
+  color: #065f46;
+}
+
+.badge-danger {
+  background: var(--danger-light);
+  color: #991b1b;
+}
+
+.badge-navy {
+  background: #dbeafe;
+  color: #1e3a8a;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1200px) {
+  .article-card.featured {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .feed-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .profile-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 20px;
+  }
+
+  .feed-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .article-view-header,
+  .article-view-body {
+    padding: 24px;
+  }
+
+  .article-view-title {
+    font-size: 1.5rem;
+  }
+
+  .article-view-actions {
+    padding: 20px 24px;
+    flex-wrap: wrap;
+  }
+
+  .bookmarks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-tabs {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .filter-row {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+}

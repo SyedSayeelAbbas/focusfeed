@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — FocusFeed</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="/admin-dashboard.html" class="navbar-brand">Focus<span>Feed</span> <span style="font-size:0.65rem;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.5);margin-left:6px;font-weight:500">ADMIN</span></a>
+    <div class="navbar-links">
+      <!-- ✅ FIX: was color:rgba(255,255,255,0.6) — too faint, now using navbar-links a style which gives proper white -->
+      <a href="/dashboard.html" class="hide-mobile">← User View</a>
+      <div id="nav-user-avatar" class="sidebar-avatar">A</div>
+    </div>
+  </div>
+</nav>
+
+<div class="admin-layout">
+  <!-- Admin Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-brand">
+      <h2>Admin Panel</h2>
+      <p>FocusFeed Control Center</p>
+    </div>
+    <a href="/admin-dashboard.html" class="admin-nav-link active">📊 Dashboard</a>
+    <a href="/manage-user.html"    class="admin-nav-link">👥 Manage Users</a>
+    <a href="/reports.html"         class="admin-nav-link">📈 Reports</a>
+
+    <!-- ✅ FIX: use proper admin-nav-link styling, not inline override that breaks color -->
+    <div class="admin-sidebar-bottom">
+      <a href="/dashboard.html" class="admin-nav-link">👁️ User View</a>
+      <button onclick="Auth.logout()" class="admin-nav-link admin-signout-btn">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Admin Main Content -->
+  <main class="admin-content">
+    <div class="admin-page-header">
+      <h1>Dashboard Overview</h1>
+      <button onclick="loadAdminAnalytics()" class="btn btn-outline btn-sm">↻ Refresh</button>
+    </div>
+
+    <!-- Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon">👥</div>
+        <div class="metric-value" id="metric-total-users">—</div>
+        <div class="metric-label">Total Users</div>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-icon">✅</div>
+        <div class="metric-value" id="metric-active-users">—</div>
+        <div class="metric-label">Active Users</div>
+      </div>
+      <div class="metric-card blue">
+        <div class="metric-icon">🆕</div>
+        <div class="metric-value" id="metric-new-week">—</div>
+        <div class="metric-label">New This Week</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🔖</div>
+        <div class="metric-value" id="metric-bookmarks">—</div>
+        <div class="metric-label">Total Bookmarks</div>
+      </div>
+    </div>
+
+    <!-- Top Interests -->
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3>Top User Interests</h3>
+        <span class="badge badge-amber">Top 10</span>
+      </div>
+      <div class="interest-bar-row" id="interest-bars">
+        <div class="spinner" style="width:28px;height:28px;margin:20px auto;border-width:2px"></div>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px">
+      <a href="/manage-user.html" class="card" style="padding:24px;display:flex;align-items:center;gap:14px;text-decoration:none">
+        <div style="font-size:2rem">👥</div>
+        <div>
+          <div style="font-weight:700;color:var(--text-main)">Manage Users</div>
+          <div style="font-size:0.82rem;color:var(--text-soft)">View, activate/deactivate accounts</div>
+        </div>
+      </a>
+      <a href="/reports.html" class="card" style="padding:24px;display:flex;align-items:center;gap:14px;text-decoration:none">
+        <div style="font-size:2rem">📈</div>
+        <div>
+          <div style="font-weight:700;color:var(--text-main)">Reports</div>
+          <div style="font-size:0.82rem;color:var(--text-soft)">Analytics & platform insights</div>
+        </div>
+      </a>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/admin.js"></script>
+<script>initAdminDashboard();</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookmarks — FocusFeed</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="/dashboard.html" class="navbar-brand">Focus<span>Feed</span></a>
+    <div class="navbar-links">
+      <div id="nav-user-avatar" class="sidebar-avatar">U</div>
+    </div>
+  </div>
+</nav>
+
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Menu</div>
+      <a href="/dashboard.html" class="sidebar-link"><span class="link-icon">📰</span> My Feed</a>
+      <a href="/bookmarks.html" class="sidebar-link active"><span class="link-icon">🔖</span> Bookmarks</a>
+      <a href="/profile.html"   class="sidebar-link"><span class="link-icon">👤</span> Profile</a>
+    </div>
+    <div class="sidebar-user">
+      <div class="sidebar-user-info" onclick="window.location.href='/profile.html'">
+        <div class="sidebar-avatar">U</div>
+        <div>
+          <div class="sidebar-user-name" id="nav-user-name">User</div>
+          <div class="sidebar-user-email">View Profile</div>
+        </div>
+      </div>
+      <button onclick="Auth.logout()" class="sidebar-link" style="width:100%;margin-top:6px">
+        <span class="link-icon">🚪</span> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Bookmarks</h1>
+        <p class="page-subtitle"><span id="bookmark-count">0</span> saved articles</p>
+      </div>
+    </div>
+
+    <div class="bookmarks-grid" id="bookmarks-grid">
+      <div class="spinner"></div>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/bookmark.js"></script>
+<script>initBookmarksPage();</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — FocusFeed</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<!-- Top Navbar -->
+<nav class="navbar">
+  <div class="container">
+    <a href="/dashboard.html" class="navbar-brand">Focus<span>Feed</span></a>
+    <div class="navbar-links">
+      <div class="search-bar" style="max-width:260px">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search articles…">
+      </div>
+      <div id="nav-user-avatar" class="sidebar-avatar" style="margin-left:8px;cursor:default">U</div>
+    </div>
+  </div>
+</nav>
+
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Menu</div>
+      <a href="/dashboard.html" class="sidebar-link active"><span class="link-icon">📰</span> My Feed</a>
+      <a href="/bookmarks.html" class="sidebar-link"><span class="link-icon">🔖</span> Bookmarks</a>
+      <a href="/profile.html"   class="sidebar-link"><span class="link-icon">👤</span> Profile</a>
+    </div>
+    <div class="sidebar-section" style="margin-top:8px">
+      <div class="sidebar-section-label">Interests</div>
+      <a href="/interests.html" class="sidebar-link"><span class="link-icon">🎯</span> Edit Interests</a>
+    </div>
+
+    <!-- ✅ Admin link — only visible if user role is admin -->
+    <div class="sidebar-section" id="admin-section" style="margin-top:8px;display:none">
+      <div class="sidebar-section-label">Admin</div>
+      <a href="/admin-dashboard.html" class="sidebar-link" style="color:var(--violet-primary);font-weight:600">
+        <span class="link-icon">⚙️</span> Admin Panel
+      </a>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="sidebar-user-info" onclick="window.location.href='/profile.html'">
+        <div class="sidebar-avatar" id="nav-user-avatar-side">U</div>
+        <div>
+          <div class="sidebar-user-name" id="nav-user-name">User</div>
+          <div class="sidebar-user-email">View Profile</div>
+        </div>
+      </div>
+      <button onclick="Auth.logout()" class="sidebar-link" style="width:100%;margin-top:6px">
+        <span class="link-icon">🚪</span> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="page-header">
+      <div>
+        <p id="greeting" class="page-subtitle" style="font-size:1rem;font-weight:500;color:var(--text-soft);margin-bottom:4px"></p>
+        <h1 class="page-title" id="feed-title">Your Feed</h1>
+      </div>
+    </div>
+
+    <!-- Filter Chips -->
+    <div class="filter-row" id="filter-row"></div>
+
+    <!-- Feed Grid -->
+    <div class="feed-grid" id="feed-grid"></div>
+
+    <!-- Load More -->
+    <div style="text-align:center;margin-top:32px">
+      <button id="load-more-btn" class="btn btn-outline" style="display:none">Load More Articles</button>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/dashboard.js"></script>
+<script>
+  initDashboard();
+  // ✅ Show admin panel link if user is admin
+  const _u = getUser();
+  if (_u && _u.role === 'admin') {
+    document.getElementById('admin-section').style.display = 'block';
+  }
+</script>
+</body>
+</html>
