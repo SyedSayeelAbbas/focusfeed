@@ -52,24 +52,24 @@ function setLoading(btn, loading, text = '') {
 
 /* ── Category Icons ── */
 const CATEGORY_SVG = {
-  technology:      'technology',
-  science:         'science',
-  health:          'health',
-  business:        'business',
-  sports:          'sports',
+  technology:      'technology-tablet-svgrepo-com',
+  science:         'science-book-school-svgrepo-com',
+  health:          'health-healthcare-hospital-medic-medical-medicine-svgrepo-com',
+  business:        'business-card-svgrepo-com',
+  sports:          'sports-svgrepo-com',
   entertainment:   'flash',
-  politics:        'politics',
-  education:       'education',
-  environment:     'environment',
-  world:           'world',
-  finance:         'finance',
-  travel:          'travel',
-  religion:        'religion',
-  food:            'food',
-  gaming:          'gaming',
-  music:           'music',
-  art:             'art',
-  fashion:         'fashion',
+  politics:        'politics-svgrepo-com',
+  education:       'education-note-notes-svgrepo-com',
+  environment:     'environment-svgrepo-com',
+  world:           'world-svgrepo-com',
+  finance:         'finance-business-money-payment-inflation-svgrepo-com',
+  travel:          'travel-svgrepo-com',
+  religion:        'religion-peace-cultural-svgrepo-com',
+  food:            'food-color-pizza-slice-svgrepo-com',
+  gaming:          'arcade-svgrepo-com',
+  music:           'music-svgrepo-com',
+  art:             'art-palette-svgrepo-com',
+  fashion:         'fashion-woman-svgrepo-com',
   general:         'laptop',
 };
 
@@ -82,8 +82,10 @@ function categoryIcon(cat) {
 function buildArticleCard(article, index = 0) {
   const isFeatured = index === 0;
   const imgHtml = article.urlToImage
-    ? `<img src="${article.urlToImage}" class="article-card-image" alt="" loading="lazy" onerror="this.style.display='none'">`
+    ? `<img src="${article.urlToImage}" class="article-card-image" alt="${article.title}" loading="lazy" onerror="this.style.display='none'">`
     : `<div class="article-card-image-placeholder">${categoryIcon(article.category)}</div>`;
+
+  const encoded = encodeURIComponent(JSON.stringify(article));
   return `
     <div class="article-card${isFeatured ? ' featured' : ''}" onclick="openArticle('${article.articleId}', ${index})">
       ${imgHtml}
