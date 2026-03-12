@@ -9,8 +9,10 @@
 </head>
 <body>
 
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
 <nav class="navbar">
   <div class="container">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu"><img src="/icons/menu.svg" class="svg-icon" alt="menu" style="filter:brightness(0) invert(1)"></button>
     <a href="/dashboard.html" class="navbar-brand">Focus<span>Feed</span></a>
     <div class="navbar-links">
       <div class="search-bar" style="max-width:260px">
@@ -83,5 +85,27 @@
     document.getElementById('admin-section').style.display = 'block';
   }
 </script>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-items">
+    <a href="/dashboard.html" class="bottom-nav-item active">
+      <img src="/icons/laptop.svg" alt="feed">
+      Feed
+    </a>
+    <a href="/bookmarks.html" class="bottom-nav-item">
+      <img src="/icons/bookmark.svg" alt="bookmarks">
+      Saved
+    </a>
+    <a href="/profile.html" class="bottom-nav-item">
+      <img src="/icons/person.svg" alt="profile">
+      Profile
+    </a>
+    <a href="/interests.html" class="bottom-nav-item">
+      <img src="/icons/arrow.svg" alt="interests">
+      Interests
+    </a>
+  </div>
+</nav>
+
 </body>
 </html>
