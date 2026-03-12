@@ -10,8 +10,10 @@
 </head>
 <body>
 
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
 <nav class="navbar">
   <div class="container">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu"><img src="/icons/menu.svg" alt="menu"></button>
     <a href="/dashboard.html" class="navbar-brand">Focus<span>Feed</span></a>
     <div class="navbar-links">
       <div id="nav-user-avatar" class="sidebar-avatar">U</div>
@@ -131,5 +133,28 @@
 <script src="/js/auth.js"></script>
 <script src="/js/profile.js"></script>
 <script>initProfilePage();</script>
+
+<nav class="bottom-nav">
+  <div class="bottom-nav-items">
+    <a href="/dashboard.html" class="bottom-nav-item "><img src="/icons/laptop.svg" alt="feed">Feed</a>
+    <a href="/bookmarks.html" class="bottom-nav-item "><img src="/icons/bookmark.svg" alt="">Saved</a>
+    <a href="/profile.html"   class="bottom-nav-item active"><img src="/icons/person.svg" alt="">Profile</a>
+    <a href="/interests.html" class="bottom-nav-item "><img src="/icons/arrow.svg" alt="">Interests</a>
+  </div>
+</nav>
+
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var sidebar = document.querySelector('.sidebar, .admin-sidebar');
+  var overlay = document.getElementById('sidebar-overlay');
+  function open(){ sidebar&&sidebar.classList.add('open'); overlay&&overlay.classList.add('active'); document.body.style.overflow='hidden'; }
+  function close(){ sidebar&&sidebar.classList.remove('open'); overlay&&overlay.classList.remove('active'); document.body.style.overflow=''; }
+  btn&&btn.addEventListener('click',function(){ sidebar&&sidebar.classList.contains('open')?close():open(); });
+  overlay&&overlay.addEventListener('click', close);
+  sidebar&&sidebar.querySelectorAll('a,button').forEach(function(el){ el.addEventListener('click',function(){ if(window.innerWidth<=1024)close(); }); });
+})();
+</script>
+
 </body>
 </html>
