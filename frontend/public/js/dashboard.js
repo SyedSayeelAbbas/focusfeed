@@ -13,7 +13,7 @@ async function initDashboard() {
 
   const user = getUser();
   const greetEl = document.getElementById('greeting');
-  if (greetEl) greetEl.textContent = `Good ${getTimeOfDay()}, ${user?.name?.split(' ')[0] || 'Reader'} 👋`;
+  if (greetEl) greetEl.textContent = `Good ${getTimeOfDay()}, ${user?.name?.split(' ')[0] || 'Reader'}`;
 
   buildFilterChips(user?.interests || []);
   await loadFeed();
@@ -49,7 +49,7 @@ function buildFilterChips(interests) {
       class="filter-chip ${cat === currentCategory ? 'active' : ''}"
       data-category="${cat}"
       onclick="setCategory('${cat}')">
-      ${cat === 'all' ? '🌐 All' : `${categoryIcon(cat)} ${cat.charAt(0).toUpperCase() + cat.slice(1)}`}
+      ${cat === 'all' ? '<img src="/icons/All.svg" class="svg-icon svg-icon-sm" alt=""> All' : `${categoryIcon(cat)} ${cat.charAt(0).toUpperCase() + cat.slice(1)}`}
     </button>`).join('');
 }
 
@@ -72,7 +72,7 @@ async function loadFeed() {
   setFeedLoading(true);
   const loadMoreBtn = document.getElementById('load-more-btn');
   try {
-    const data = await Articles.getFeed(1, 20);
+    const data = await Articles.getFeed(1, 9);
     allArticles = data.data.articles || [];
     allArticles.forEach(cacheArticle);
     renderFeed(allArticles);
@@ -90,7 +90,7 @@ async function loadTopHeadlines(category) {
   const loadMoreBtn = document.getElementById('load-more-btn');
   if (loadMoreBtn) loadMoreBtn.style.display = 'none';
   try {
-    const data = await Articles.getTopHeadlines(category, 20);
+    const data = await Articles.getTopHeadlines(category, 9);
     allArticles = data.data.articles || [];
 
     // ✅ FIX: Force correct category label on every article so cards always
@@ -119,7 +119,7 @@ async function runSearch(q) {
     const data = await Articles.search(q);
     allArticles = data.data.articles || [];
     allArticles.forEach(cacheArticle);
-    renderFeed(allArticles, `🔍 Results for "${q}"`);
+    renderFeed(allArticles, `Results for "${q}"`);
   } catch (err) {
     showFeedError(err.message);
   } finally {
@@ -170,11 +170,11 @@ function renderFeed(articles, title = '') {
   const grid = document.getElementById('feed-grid');
   if (!grid) return;
   const feedTitle = document.getElementById('feed-title');
-  if (feedTitle) feedTitle.textContent = title || 'Your Feed';
+  if (feedTitle) feedTitle.innerHTML = title || 'Your Feed';
 
   if (!articles.length) {
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="empty-icon">📭</div>
+      <div class="empty-icon"><img src="/icons/bookmark.svg" class="svg-icon svg-icon-xl" alt="" style="opacity:0.3"></div>
       <h3>No articles found</h3>
       <p>Try different keywords or update your interests.</p>
     </div>`;
@@ -187,7 +187,7 @@ function setFeedLoading(loading) {
   const grid = document.getElementById('feed-grid');
   if (!grid) return;
   if (loading) {
-    grid.innerHTML = Array(6).fill(0).map(() => `
+    grid.innerHTML = Array(9).fill(0).map(() => `
       <div class="article-card-skeleton"></div>
     `).join('');
   }
@@ -196,7 +196,7 @@ function setFeedLoading(loading) {
 function showFeedError(msg) {
   const grid = document.getElementById('feed-grid');
   if (grid) grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-    <div class="empty-icon">⚠️</div><h3>Could not load articles</h3><p>${msg}</p>
+    <div class="empty-icon"><img src="/icons/warn.svg" class="svg-icon svg-icon-xl" alt="" style="opacity:0.3"></div><h3>Could not load articles</h3><p>${msg}</p>
   </div>`;
 }
 

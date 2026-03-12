@@ -100,7 +100,6 @@ body {
   color: var(--text-main);
   line-height: 1.6;
   min-height: 100vh;
-  padding-top: var(--navbar-height); /* ✅ FIX: push all content below fixed navbar */
   transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
@@ -653,3 +652,75 @@ select.form-control {
     font-size: 1.4rem;
   }
 }
+/* ============================================
+   SVG ICON SIZING — FIXED
+   ============================================ */
+
+/* Base — all svg-icon images */
+img.svg-icon,
+img.svg-icon-sm,
+img.svg-icon-md,
+img.svg-icon-lg,
+img.svg-icon-xl {
+  display: inline-block;
+  vertical-align: middle;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Small — inline text, buttons, toggles, nav links */
+img.svg-icon-sm { width: 16px; height: 16px; }
+
+/* Default — general inline icons */
+img.svg-icon    { width: 20px; height: 20px; }
+
+/* Medium — role cards, preview cards */
+img.svg-icon-md { width: 24px; height: 24px; }
+
+/* Large — metric cards, feature section */
+img.svg-icon-lg { width: 28px; height: 28px; }
+
+/* Extra large — quick link cards */
+img.svg-icon-xl { width: 32px; height: 32px; }
+
+/* Sidebar link icons */
+.link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.link-icon img { width: 16px; height: 16px; }
+
+/* Admin sidebar nav icons */
+.admin-nav-link img.svg-icon-sm {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Search bar icon */
+.search-icon {
+  display: flex;
+  align-items: center;
+}
+.search-icon img { width: 14px; height: 14px; }
+
+/* Input toggle (eye icon) */
+.input-toggle img { width: 16px; height: 16px; opacity: 0.6; }
+.input-toggle:hover img { opacity: 1; }
+
+/* Metric card icons */
+.metric-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+.metric-icon img { width: 28px; height: 28px; }
+
+/* Button inline icons */
+.btn img.svg-icon-sm { width: 14px; height: 14px; }

@@ -7,7 +7,6 @@
 .auth-page {
   min-height: 100vh;
   display: flex;
-  margin-top: calc(-1 * var(--navbar-height)); /* ✅ FIX: cancel body padding-top for auth pages */
 }
 
 /* Left Panel - Branding */
@@ -336,4 +335,46 @@
   .interests-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+/* ============================================
+   SVG ICON SIZING — AUTH PAGES
+   ============================================ */
+
+/* Auth feature icons — left panel */
+.auth-feature-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: var(--radius-md);
+  background: rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-feature-icon img {
+  width: 20px !important;
+  height: 20px !important;
+  object-fit: contain;
+}
+
+/* Role card icons — keep small and contained */
+.role-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-bottom: 8px;
+}
+.role-card-icon img {
+  width: 32px !important;
+  height: 32px !important;
+  object-fit: contain;
+}
+
+/* Admin notice lock icon */
+.admin-notice img {
+  width: 14px !important;
+  height: 14px !important;
+  vertical-align: middle;
 }

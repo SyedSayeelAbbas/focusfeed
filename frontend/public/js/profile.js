@@ -66,21 +66,21 @@ async function loadProfileData() {
 
 function renderInterestChips(selected) {
   const ALL_INTERESTS = [
-    { name: 'technology',   label: 'Technology',   icon: '💻' },
-    { name: 'science',      label: 'Science',       icon: '🔬' },
-    { name: 'health',       label: 'Health',        icon: '🏥' },
-    { name: 'business',     label: 'Business',      icon: '📈' },
-    { name: 'sports',       label: 'Sports',        icon: '⚽' },
-    { name: 'entertainment',label: 'Entertainment', icon: '🎬' },
-    { name: 'politics',     label: 'Politics',      icon: '🏛️' },
-    { name: 'education',    label: 'Education',     icon: '📚' },
-    { name: 'environment',  label: 'Environment',   icon: '🌿' },
-    { name: 'world',        label: 'World',         icon: '🌍' },
-    { name: 'finance',      label: 'Finance',       icon: '💰' },
-    { name: 'travel',       label: 'Travel',        icon: '✈️' },
-    { name: 'gaming',       label: 'Gaming',        icon: '🎮' },
-    { name: 'music',        label: 'Music',         icon: '🎵' },
-    { name: 'art',          label: 'Art',           icon: '🎨' },
+    { name: 'technology', label: 'Technology', icon: '<img src="/icons/technology.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'science', label: 'Science', icon: '<img src="/icons/science.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'health', label: 'Health', icon: '<img src="/icons/health.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'business', label: 'Business', icon: '<img src="/icons/business.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'sports', label: 'Sports', icon: '<img src="/icons/sports.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'entertainment', label: 'Entertainment', icon: '<img src="/icons/flash.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'politics', label: 'Politics', icon: '<img src="/icons/politics.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'education', label: 'Education', icon: '<img src="/icons/education.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'environment', label: 'Environment', icon: '<img src="/icons/environment.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'world', label: 'World', icon: '<img src="/icons/world.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'finance', label: 'Finance', icon: '<img src="/icons/finance.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'travel', label: 'Travel', icon: '<img src="/icons/travel.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'gaming', label: 'Gaming', icon: '<img src="/icons/gaming.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'music', label: 'Music', icon: '<img src="/icons/music.svg" class="svg-icon svg-icon-sm" alt="">' },
+    { name: 'art', label: 'Art', icon: '<img src="/icons/art.svg" class="svg-icon svg-icon-sm" alt="">' },
   ];
 
   const grid = document.getElementById('interests-edit-grid');
@@ -94,7 +94,7 @@ function renderInterestChips(selected) {
            onclick="profileToggleInterest('${cat.name}')">
         <div class="chip-icon">${cat.icon}</div>
         <div class="chip-label">${cat.label}</div>
-        <div class="chip-check">✓</div>
+        <div class="chip-check"><img src="/icons/right.svg" class="svg-icon svg-icon-sm" alt="✓"></div>
       </div>`).join('');
   }
 

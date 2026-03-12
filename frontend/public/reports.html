@@ -25,12 +25,12 @@
       <h2>Admin Panel</h2>
       <p>FocusFeed Control Center</p>
     </div>
-    <a href="/admin-dashboard.html" class="admin-nav-link">📊 Dashboard</a>
-    <a href="/manage-user.html"     class="admin-nav-link">👥 Manage Users</a>
-    <a href="/reports.html"          class="admin-nav-link active">📈 Reports</a>
+    <a href="/admin-dashboard.html" class="admin-nav-link"><img src="/icons/Signal.svg" class="svg-icon svg-icon-sm" alt=""> Dashboard</a>
+    <a href="/manage-user.html"     class="admin-nav-link"><img src="/icons/people.svg" class="svg-icon svg-icon-sm" alt=""> Manage Users</a>
+    <a href="/reports.html"         class="admin-nav-link active"><img src="/icons/graph.svg" class="svg-icon svg-icon-sm" alt=""> Reports</a>
     <div class="admin-sidebar-bottom">
-      <a href="/dashboard.html" class="admin-nav-link">👁️ User View</a>
-      <button onclick="Auth.logout()" class="admin-nav-link admin-signout-btn">🚪 Sign Out</button>
+      <a href="/dashboard.html" class="admin-nav-link"><img src="/icons/eye.svg" class="svg-icon svg-icon-sm" alt=""> User View</a>
+      <button onclick="Auth.logout()" class="admin-nav-link admin-signout-btn"><img src="/icons/door.svg" class="svg-icon svg-icon-sm" alt=""> Sign Out</button>
     </div>
   </aside>
 
@@ -40,37 +40,35 @@
       <button onclick="loadReports()" class="btn btn-outline btn-sm">↻ Refresh</button>
     </div>
 
-    <!-- Summary Metrics -->
     <div class="metrics-grid" style="margin-bottom:24px">
       <div class="metric-card">
-        <div class="metric-icon">👥</div>
+        <div class="metric-icon"><img src="/icons/people.svg" class="svg-icon svg-icon-lg" alt=""></div>
         <div class="metric-value" id="report-total">—</div>
         <div class="metric-label">Total Users</div>
       </div>
       <div class="metric-card green">
-        <div class="metric-icon">✅</div>
+        <div class="metric-icon"><img src="/icons/right.svg" class="svg-icon svg-icon-lg" alt=""></div>
         <div class="metric-value" id="report-active">—</div>
         <div class="metric-label">Active</div>
       </div>
       <div class="metric-card red">
-        <div class="metric-icon">🚫</div>
+        <div class="metric-icon"><img src="/icons/warn.svg" class="svg-icon svg-icon-lg" alt=""></div>
         <div class="metric-value" id="report-inactive">—</div>
         <div class="metric-label">Inactive</div>
       </div>
       <div class="metric-card blue">
-        <div class="metric-icon">🆕</div>
+        <div class="metric-icon"><img src="/icons/new.svg" class="svg-icon svg-icon-lg" alt=""></div>
         <div class="metric-value" id="report-new-week">—</div>
         <div class="metric-label">New This Week</div>
       </div>
       <div class="metric-card">
-        <div class="metric-icon">🔖</div>
+        <div class="metric-icon"><img src="/icons/bookmark.svg" class="svg-icon svg-icon-lg" alt=""></div>
         <div class="metric-value" id="report-bookmarks">—</div>
         <div class="metric-label">Total Bookmarks</div>
       </div>
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-      <!-- Top Interests -->
       <div class="table-card">
         <div class="table-card-header">
           <h3>Top Interests</h3>
@@ -80,8 +78,6 @@
           <div class="spinner" style="width:28px;height:28px;margin:20px auto;border-width:2px"></div>
         </div>
       </div>
-
-      <!-- Recent Signups -->
       <div class="table-card">
         <div class="table-card-header">
           <h3>Recent Signups</h3>
@@ -104,6 +100,7 @@
 
 <div id="toast-container"></div>
 <script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
 <script src="/js/utils.js"></script>
 <script src="/js/admin.js"></script>
 <script>initReportsPage();</script>

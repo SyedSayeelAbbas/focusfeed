@@ -12,7 +12,7 @@ function showToast(message, type = 'default') {
   }
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
-  const icons = { success: '✓', error: '✕', default: '●' };
+  const icons = { success: '✓', error: '✕', default: '●' }; // text icons kept for toast
   toast.innerHTML = `<span>${icons[type] || icons.default}</span><span>${message}</span>`;
   container.appendChild(toast);
   setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(20px)'; toast.style.transition = '0.3s'; setTimeout(() => toast.remove(), 300); }, 3500);
@@ -51,28 +51,39 @@ function setLoading(btn, loading, text = '') {
 }
 
 /* ── Category Icons ── */
-const CATEGORY_ICONS = {
-  technology:  '💻', science:    '🔬', health:     '🏥',
-  business:    '📈', sports:     '⚽', entertainment: '🎬',
-  politics:    '🏛️',  education:  '📚', environment: '🌿',
-  world:       '🌍', finance:    '💰', travel:      '✈️',
-  religion:    '🕊️',  food:       '🍽️', fashion:     '👗',
-  gaming:      '🎮', music:      '🎵', art:         '🎨',
-  general:     '📰',
+const CATEGORY_SVG = {
+  technology:      'technology',
+  science:         'science',
+  health:          'health',
+  business:        'business',
+  sports:          'sports',
+  entertainment:   'flash',
+  politics:        'politics',
+  education:       'education',
+  environment:     'environment',
+  world:           'world',
+  finance:         'finance',
+  travel:          'travel',
+  religion:        'religion',
+  food:            'food',
+  gaming:          'gaming',
+  music:           'music',
+  art:             'art',
+  fashion:         'fashion',
+  general:         'laptop',
 };
 
 function categoryIcon(cat) {
-  return CATEGORY_ICONS[cat?.toLowerCase()] || '📰';
+  const name = CATEGORY_SVG[cat?.toLowerCase()] || 'laptop';
+  return `<img src="/icons/${name}.svg" class="svg-icon svg-icon-sm" alt="${cat || 'general'}" style="vertical-align:middle">`;
 }
 
 /* ── Build Article Card HTML ── */
 function buildArticleCard(article, index = 0) {
   const isFeatured = index === 0;
   const imgHtml = article.urlToImage
-    ? `<img src="${article.urlToImage}" class="article-card-image" alt="${article.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=article-card-image-placeholder>${categoryIcon(article.category)}</div>'">`
+    ? `<img src="${article.urlToImage}" class="article-card-image" alt="" loading="lazy" onerror="this.style.display='none'">`
     : `<div class="article-card-image-placeholder">${categoryIcon(article.category)}</div>`;
-
-  const encoded = encodeURIComponent(JSON.stringify(article));
   return `
     <div class="article-card${isFeatured ? ' featured' : ''}" onclick="openArticle('${article.articleId}', ${index})">
       ${imgHtml}
@@ -87,7 +98,7 @@ function buildArticleCard(article, index = 0) {
       <div class="article-card-footer">
         <span class="badge badge-amber">${article.category || 'general'}</span>
         <div class="article-card-actions">
-          <button class="btn-icon" title="Bookmark" onclick="event.stopPropagation(); toggleBookmark(this, ${JSON.stringify(article).replace(/"/g, '&quot;')})">🔖</button>
+          <button class="btn-icon" title="Bookmark" onclick="event.stopPropagation(); toggleBookmark(this, ${JSON.stringify(article).replace(/"/g, '&quot;')})"><img src="/icons/bookmark.svg" class="svg-icon svg-icon-sm" alt="bookmark"></button>
           <button class="btn-icon" title="Open source" onclick="event.stopPropagation(); window.open('${article.url}','_blank')">↗</button>
         </div>
       </div>

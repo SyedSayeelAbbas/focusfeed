@@ -59,7 +59,7 @@ function renderArticle(article) {
     bookmarkBtn.addEventListener('click', async () => {
       try {
         await Bookmarks.add(article);
-        bookmarkBtn.textContent = '🔖 Bookmarked';
+        bookmarkBtn.innerHTML = '<img src="/icons/bookmark.svg" class="svg-icon svg-icon-sm" alt=""> Bookmarked';
         bookmarkBtn.classList.add('active');
         showToast('Added to bookmarks!', 'success');
       } catch (err) {

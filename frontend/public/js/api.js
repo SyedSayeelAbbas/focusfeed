@@ -30,7 +30,7 @@ async function apiFetch(endpoint, options = {}) {
   if (res.status === 401) {
     removeToken();
     removeUser();
-    window.location.href = '/frontend/public/login.html';
+    window.location.href = '/login.html';
     throw new Error(data.message || 'Session expired. Please sign in again.');
   }
 
@@ -84,7 +84,7 @@ const Auth = {
   logout() {
     removeToken();
     removeUser();
-    window.location.href = '/frontend/public/login.html';
+    window.location.href = '/login.html';
   },
 
   isLoggedIn() {
@@ -189,13 +189,13 @@ const Admin = {
 // For protected user pages (dashboard, bookmarks, profile, article, interests)
 async function requireAuth() {
   if (!getToken()) {
-    window.location.href = '/frontend/public/login.html';
+    window.location.href = '/login.html';
     return false;
   }
   // Verify token is still valid with the backend
   const valid = await validateSession();
   if (!valid) {
-    window.location.href = '/frontend/public/login.html';
+    window.location.href = '/login.html';
     return false;
   }
   return true;
@@ -204,16 +204,16 @@ async function requireAuth() {
 // For admin-only pages
 async function requireAdmin() {
   if (!getToken()) {
-    window.location.href = '/frontend/public/login.html';
+    window.location.href = '/login.html';
     return false;
   }
   const valid = await validateSession();
   if (!valid) {
-    window.location.href = '/frontend/public/login.html';
+    window.location.href = '/login.html';
     return false;
   }
   if (!Auth.isAdmin()) {
-    window.location.href = '/frontend/public/dashboard.html';
+    window.location.href = '/dashboard.html';
     return false;
   }
   return true;

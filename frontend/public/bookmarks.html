@@ -22,9 +22,9 @@
   <aside class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-section-label">Menu</div>
-      <a href="/dashboard.html" class="sidebar-link"><span class="link-icon">📰</span> My Feed</a>
-      <a href="/bookmarks.html" class="sidebar-link active"><span class="link-icon">🔖</span> Bookmarks</a>
-      <a href="/profile.html"   class="sidebar-link"><span class="link-icon">👤</span> Profile</a>
+      <a href="/dashboard.html" class="sidebar-link"><span class="link-icon"><img src="/icons/laptop.svg" class="svg-icon svg-icon-sm" alt=""></span> My Feed</a>
+      <a href="/bookmarks.html" class="sidebar-link active"><span class="link-icon"><img src="/icons/bookmark.svg" class="svg-icon svg-icon-sm" alt=""></span> Bookmarks</a>
+      <a href="/profile.html"   class="sidebar-link"><span class="link-icon"><img src="/icons/person.svg" class="svg-icon svg-icon-sm" alt=""></span> Profile</a>
     </div>
     <div class="sidebar-user">
       <div class="sidebar-user-info" onclick="window.location.href='/profile.html'">
@@ -35,7 +35,7 @@
         </div>
       </div>
       <button onclick="Auth.logout()" class="sidebar-link" style="width:100%;margin-top:6px">
-        <span class="link-icon">🚪</span> Sign Out
+        <span class="link-icon"><img src="/icons/door.svg" class="svg-icon svg-icon-sm" alt=""></span> Sign Out
       </button>
     </div>
   </aside>
@@ -47,7 +47,6 @@
         <p class="page-subtitle"><span id="bookmark-count">0</span> saved articles</p>
       </div>
     </div>
-
     <div class="bookmarks-grid" id="bookmarks-grid">
       <div class="spinner"></div>
     </div>
@@ -56,6 +55,7 @@
 
 <div id="toast-container"></div>
 <script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
 <script src="/js/utils.js"></script>
 <script src="/js/bookmark.js"></script>
 <script>initBookmarksPage();</script>

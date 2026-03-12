@@ -23,7 +23,7 @@ async function loadBookmarks() {
 
     if (!bookmarksList.length) {
       grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-        <div class="empty-icon">🔖</div>
+        <div class="empty-icon"><img src="/icons/bookmark.svg" class="svg-icon svg-icon-xl" alt="" style="opacity:0.3"></div>
         <h3>No bookmarks yet</h3>
         <p>Save articles from your feed to read them later.</p>
         <a href="/dashboard.html" class="btn btn-primary btn-sm" style="margin-top:16px;">Browse Feed</a>
@@ -34,7 +34,7 @@ async function loadBookmarks() {
     grid.innerHTML = bookmarksList.map(bk => buildBookmarkCard(bk)).join('');
   } catch (err) {
     if (grid) grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="empty-icon">⚠️</div><h3>${err.message}</h3>
+      <div class="empty-icon"><img src="/icons/warn.svg" class="svg-icon svg-icon-xl" alt="" style="opacity:0.3"></div><h3>${err.message}</h3>
     </div>`;
   }
 }
@@ -57,7 +57,7 @@ function buildBookmarkCard(bk) {
         <span class="badge badge-amber">${bk.category || 'general'}</span>
         <div class="article-card-actions">
           <button class="btn-icon" title="Read article" onclick="window.open('${bk.url}','_blank')">↗</button>
-          <button class="btn-icon btn-icon-danger" title="Remove bookmark" onclick="removeBookmark('${bk._id}', this)">🗑</button>
+          <button class="btn-icon btn-icon-danger" title="Remove bookmark" onclick="removeBookmark('${bk._id}', this)"><img src="/icons/warn.svg" class="svg-icon svg-icon-sm" alt="remove"></button>
         </div>
       </div>
     </div>`;

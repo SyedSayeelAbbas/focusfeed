@@ -25,12 +25,12 @@
       <h2>Admin Panel</h2>
       <p>FocusFeed Control Center</p>
     </div>
-    <a href="/admin-dashboard.html" class="admin-nav-link">📊 Dashboard</a>
-    <a href="/manage-user.html"     class="admin-nav-link active">👥 Manage Users</a>
-    <a href="/reports.html"          class="admin-nav-link">📈 Reports</a>
+    <a href="/admin-dashboard.html" class="admin-nav-link"><img src="/icons/Signal.svg" class="svg-icon svg-icon-sm" alt=""> Dashboard</a>
+    <a href="/manage-user.html"     class="admin-nav-link active"><img src="/icons/people.svg" class="svg-icon svg-icon-sm" alt=""> Manage Users</a>
+    <a href="/reports.html"         class="admin-nav-link"><img src="/icons/graph.svg" class="svg-icon svg-icon-sm" alt=""> Reports</a>
     <div class="admin-sidebar-bottom">
-      <a href="/dashboard.html" class="admin-nav-link">👁️ User View</a>
-      <button onclick="Auth.logout()" class="admin-nav-link admin-signout-btn">🚪 Sign Out</button>
+      <a href="/dashboard.html" class="admin-nav-link"><img src="/icons/eye.svg" class="svg-icon svg-icon-sm" alt=""> User View</a>
+      <button onclick="Auth.logout()" class="admin-nav-link admin-signout-btn"><img src="/icons/door.svg" class="svg-icon svg-icon-sm" alt=""> Sign Out</button>
     </div>
   </aside>
 
@@ -42,7 +42,7 @@
       </div>
       <div style="display:flex;gap:10px;align-items:center">
         <div class="search-bar" style="max-width:260px">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon"><img src="/icons/magnifier.svg" class="svg-icon svg-icon-sm" alt=""></span>
           <input type="text" id="user-search" placeholder="Search by name or email…">
         </div>
         <button onclick="loadUsers()" class="btn btn-outline btn-sm">↻ Refresh</button>
@@ -58,12 +58,7 @@
         <table class="data-table">
           <thead>
             <tr>
-              <th>User</th>
-              <th>Role</th>
-              <th>Interests</th>
-              <th>Joined</th>
-              <th>Status</th>
-              <th>Toggle</th>
+              <th>User</th><th>Role</th><th>Interests</th><th>Joined</th><th>Status</th><th>Toggle</th>
             </tr>
           </thead>
           <tbody id="users-tbody">
@@ -77,6 +72,7 @@
 
 <div id="toast-container"></div>
 <script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
 <script src="/js/utils.js"></script>
 <script src="/js/admin.js"></script>
 <script>initManageUsers();</script>
