@@ -6,6 +6,7 @@
 .admin-layout {
   display: flex;
   min-height: calc(100vh - var(--navbar-height));
+  margin-top: var(--navbar-height);
 }
 
 /* Admin Sidebar */
@@ -445,19 +446,4 @@
 .admin-signout-btn:hover {
   background: var(--danger-light) !important;
   color: var(--danger) !important;
-}
-/* ── Admin Mobile Fix ── */
-@media (max-width: 1024px) {
-  .admin-sidebar {
-    position: fixed;
-    top: var(--navbar-height);
-    left: 0;
-    height: calc(100vh - var(--navbar-height));
-    transform: translateX(-100%);
-    transition: transform var(--transition-normal);
-    z-index: 200;
-  }
-  .admin-sidebar.open { transform: translateX(0); }
-  .admin-content { margin-left: 0 !important; }
-  .admin-layout { display: block; }
 }
