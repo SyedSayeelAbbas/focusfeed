@@ -6,16 +6,22 @@
 const API_BASE = window.location.origin + '/api';
 
 /* ── Token Helpers ── */
-const getToken = () => localStorage.getItem('ff_token');
-const setToken = (t) => localStorage.setItem('ff_token', t);
-const removeToken = () => localStorage.removeItem('ff_token');
+const getToken = () => sessionStorage.getItem('ff_token');
+const setToken = (t) => sessionStorage.setItem('ff_token', t);
+const removeToken = () => {
+  sessionStorage.removeItem('ff_token');
+  localStorage.removeItem('ff_token'); // also clear old localStorage tokens
+};
 
 const getUser = () => {
-  const u = localStorage.getItem('ff_user');
+  const u = sessionStorage.getItem('ff_user');
   return u ? JSON.parse(u) : null;
 };
-const setUser = (u) => localStorage.setItem('ff_user', JSON.stringify(u));
-const removeUser = () => localStorage.removeItem('ff_user');
+const setUser = (u) => sessionStorage.setItem('ff_user', JSON.stringify(u));
+const removeUser = () => {
+  sessionStorage.removeItem('ff_user');
+  localStorage.removeItem('ff_user'); // also clear old localStorage users
+};
 
 /* ── Core Fetch Wrapper ── */
 async function apiFetch(endpoint, options = {}) {
@@ -218,3 +224,55 @@ async function requireAdmin() {
   }
   return true;
 }
+
+/* ============================================
+   AUTO LOGOUT — Inactivity & Tab Revisit
+   ============================================ */
+(function () {
+  const TIMEOUT     = 30 * 60 * 1000;
+  const WARN_BEFORE =  2 * 60 * 1000;
+  const KEY         = 'ff_last_active';
+
+  const skip = ['/', '/index.html', '/login.html', '/signup.html', '/interests.html'];
+  if (skip.some(p => window.location.pathname === p || window.location.pathname.endsWith(p))) return;
+  if (!getToken()) return;
+
+  let warnTimer = null, logoutTimer = null, warnEl = null;
+
+  function doLogout() {
+    removeToken(); removeUser();
+    localStorage.removeItem(KEY);
+    sessionStorage.setItem('ff_auto_logout', '1');
+    window.location.href = '/login.html';
+  }
+
+  function resetTimers() {
+    localStorage.setItem(KEY, Date.now().toString());
+    clearTimeout(warnTimer); clearTimeout(logoutTimer);
+    if (warnEl) { warnEl.remove(); warnEl = null; }
+
+    warnTimer = setTimeout(() => {
+      warnEl = document.createElement('div');
+      warnEl.style.cssText = 'position:fixed;bottom:80px;right:20px;z-index:9999;background:var(--bg-card);border-left:4px solid #f59e0b;border-radius:10px;padding:14px 18px;box-shadow:0 8px 24px rgba(0,0,0,0.15);max-width:300px;font-size:0.88rem;color:var(--text-main);';
+      warnEl.innerHTML = '<strong>Still there?</strong><br><span style="color:var(--text-soft)">You\'ll be signed out in 2 minutes.</span><br><button id="_stay_btn" style="margin-top:8px;padding:6px 14px;background:var(--violet-primary);color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600">Keep me signed in</button>';
+      document.body.appendChild(warnEl);
+      document.getElementById('_stay_btn').onclick = resetTimers;
+    }, TIMEOUT - WARN_BEFORE);
+
+    logoutTimer = setTimeout(doLogout, TIMEOUT);
+  }
+
+  ['click','mousemove','keydown','scroll','touchstart'].forEach(ev => {
+    document.addEventListener(ev, resetTimers, { passive: true });
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      const last = parseInt(localStorage.getItem(KEY) || '0');
+      if (last && Date.now() - last > TIMEOUT) doLogout();
+      else resetTimers();
+    }
+  });
+
+  resetTimers();
+})();
