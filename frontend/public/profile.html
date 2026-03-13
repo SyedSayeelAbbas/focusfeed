@@ -66,6 +66,7 @@
           <button class="profile-tab" data-panel="panel-edit">Edit Profile</button>
           <button class="profile-tab" data-panel="panel-interests">Interests</button>
           <button class="profile-tab" data-panel="panel-password">Password</button>
+          <button class="profile-tab" data-panel="panel-history">History</button>
         </div>
 
         <div id="panel-edit" class="profile-panel card" style="padding:28px">
@@ -122,6 +123,12 @@
             <button type="submit" class="btn btn-primary">Change Password</button>
           </form>
         </div>
+
+        <div id="panel-history" class="profile-panel card" style="padding:28px;display:none">
+          <!-- Filled by renderReadingHistory() in profile.js -->
+          <div style="text-align:center;padding:40px;color:var(--text-soft)">Loading history…</div>
+        </div>
+
       </div>
     </div>
   </main>

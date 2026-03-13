@@ -17,20 +17,38 @@ async function initDashboard() {
 
   buildFilterChips(user?.interests || []);
   await loadFeed();
+  updateNotificationBadge();
 
   const searchInput = document.getElementById('search-input');
   let searchTimer;
+  searchInput?.addEventListener('focus', () => showSearchSuggestions(searchInput));
   searchInput?.addEventListener('input', (e) => {
     clearTimeout(searchTimer);
     const q = e.target.value.trim();
+    hideSearchSuggestions();
     if (q.length < 2) { if (!q) loadFeed(); return; }
     searchTimer = setTimeout(() => runSearch(q), 500);
   });
   searchInput?.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') { clearTimeout(searchTimer); runSearch(e.target.value.trim()); }
+    if (e.key === 'Enter') { clearTimeout(searchTimer); hideSearchSuggestions(); runSearch(e.target.value.trim()); }
+    if (e.key === 'Escape') hideSearchSuggestions();
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-bar')) hideSearchSuggestions();
   });
 
   document.getElementById('load-more-btn')?.addEventListener('click', loadMore);
+
+  // Infinite scroll
+  window.addEventListener('scroll', () => {
+    if (isLoading) return;
+    const scrolled = window.scrollY + window.innerHeight;
+    const total = document.documentElement.scrollHeight;
+    if (scrolled >= total - 300) {
+      const btn = document.getElementById('load-more-btn');
+      if (btn && btn.style.display !== 'none') loadMore();
+    }
+  });
 
   // Mobile sidebar toggle
   (function() {
@@ -112,7 +130,15 @@ async function loadFeed() {
     renderFeed(allArticles);
     if (loadMoreBtn) loadMoreBtn.style.display = allArticles.length >= 5 ? 'inline-flex' : 'none';
   } catch (err) {
-    showFeedError(err.message);
+    // Fallback: show top headlines if personal feed fails
+    try {
+      const fallback = await Articles.getTopHeadlines('general', 9);
+      allArticles = (fallback.data.articles || []).map(a => ({...a, category: 'general'}));
+      allArticles.forEach(cacheArticle);
+      renderFeed(allArticles, '📰 Top Headlines');
+    } catch(e) {
+      showFeedError(err.message);
+    }
     if (loadMoreBtn) loadMoreBtn.style.display = 'none';
   } finally {
     setFeedLoading(false);
@@ -143,6 +169,7 @@ async function loadTopHeadlines(category) {
 
 async function runSearch(q) {
   if (!q) return;
+  saveSearchHistory(q);
   setFeedLoading(true);
   const loadMoreBtn = document.getElementById('load-more-btn');
   if (loadMoreBtn) loadMoreBtn.style.display = 'none';
@@ -255,3 +282,67 @@ window.toggleBookmark = async (btn, article) => {
     showToast(err.message, 'error');
   }
 };
+
+/* ── Search History ── */
+function saveSearchHistory(q) {
+  const history = JSON.parse(localStorage.getItem('ff_search_history') || '[]');
+  const filtered = history.filter(h => h !== q);
+  filtered.unshift(q);
+  localStorage.setItem('ff_search_history', JSON.stringify(filtered.slice(0, 5)));
+}
+
+function showSearchSuggestions(input) {
+  hideSearchSuggestions();
+  const history = JSON.parse(localStorage.getItem('ff_search_history') || '[]');
+  if (!history.length) return;
+  const box = document.createElement('div');
+  box.id = 'search-suggestions';
+  box.className = 'search-suggestions';
+  box.innerHTML = `
+    <div class="search-suggestions-label">Recent Searches</div>
+    ${history.map(q => `
+      <div class="search-suggestion-item" onclick="document.getElementById('search-input').value='${q.replace(/'/g,"\'")}';hideSearchSuggestions();runSearch('${q.replace(/'/g,"\'")}')">
+        <span style="opacity:0.4;font-size:0.8rem">🔍</span> ${q}
+        <button onclick="event.stopPropagation();removeSearchHistory('${q.replace(/'/g,"\'")}');" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--text-soft);font-size:0.8rem;padding:0 4px">✕</button>
+      </div>`).join('')}
+  `;
+  const bar = input.closest('.search-bar') || input.parentElement;
+  bar.style.position = 'relative';
+  bar.appendChild(box);
+}
+
+function hideSearchSuggestions() {
+  document.getElementById('search-suggestions')?.remove();
+}
+
+window.removeSearchHistory = (q) => {
+  const history = JSON.parse(localStorage.getItem('ff_search_history') || '[]');
+  localStorage.setItem('ff_search_history', JSON.stringify(history.filter(h => h !== q)));
+  const input = document.getElementById('search-input');
+  if (input) showSearchSuggestions(input);
+};
+
+/* ── Notification Badge ── */
+function updateNotificationBadge() {
+  const lastVisit = localStorage.getItem('ff_last_visit');
+  const now = Date.now();
+  localStorage.setItem('ff_last_visit', now.toString());
+  if (!lastVisit) return;
+
+  const newCount = allArticles.filter(a => {
+    const pub = new Date(a.publishedAt).getTime();
+    return pub > parseInt(lastVisit);
+  }).length;
+
+  if (newCount > 0) {
+    document.querySelectorAll('a[href="/dashboard.html"]').forEach(link => {
+      if (!link.querySelector('.notif-badge')) {
+        const badge = document.createElement('span');
+        badge.className = 'notif-badge';
+        badge.textContent = newCount > 9 ? '9+' : newCount;
+        link.style.position = 'relative';
+        link.appendChild(badge);
+      }
+    });
+  }
+}

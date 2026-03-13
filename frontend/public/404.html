@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | FocusFeed</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .notfound-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      background: var(--bg-primary);
+    }
+    .notfound-inner { max-width: 480px; }
+    .notfound-code {
+      font-size: clamp(5rem, 20vw, 9rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--violet-primary), var(--violet-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -4px;
+    }
+    .notfound-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+    .notfound-desc {
+      font-size: 1rem;
+      color: var(--text-soft);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .notfound-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .notfound-brand {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--violet-primary);
+      margin-bottom: 40px;
+      display: block;
+      text-decoration: none;
+    }
+    .notfound-brand span { font-weight: 400; color: var(--text-soft); }
+  </style>
+</head>
+<body>
+<div class="notfound-page">
+  <div class="notfound-inner">
+    <a href="/" class="notfound-brand">Focus<span>Feed</span></a>
+    <div class="notfound-code">404</div>
+    <h1 class="notfound-title">Page not found</h1>
+    <p class="notfound-desc">The page you're looking for may have been moved, deleted, or never existed. Let's get you back to your feed.</p>
+    <div class="notfound-actions">
+      <a href="/dashboard.html" class="btn btn-primary">Go to My Feed</a>
+      <a href="/" class="btn btn-outline">Back to Home</a>
+    </div>
+  </div>
+</div>
+<script src="/js/api.js"></script>
+<script>
+  // Apply saved theme
+  try {
+    const theme = localStorage.getItem('ff_theme') || 'light';
+    document.body.setAttribute('data-theme', theme);
+  } catch(e) {}
+</script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,107 +8,118 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/dashboard.css">
 </head>
+
 <body>
 
-<div class="sidebar-overlay" id="sidebar-overlay"></div>
-<nav class="navbar">
-  <div class="container">
-    <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu"><img src="/icons/menu.svg" class="svg-icon" alt="menu" style="filter:brightness(0) invert(1)"></button>
-    <a href="/dashboard.html" class="navbar-brand">Focus<span>Feed</span></a>
-    <div class="navbar-links">
-      <div class="search-bar" style="max-width:260px">
-        <span class="search-icon"><img src="/icons/magnifier.svg" class="svg-icon svg-icon-sm" alt="search"></span>
-        <input type="text" id="search-input" placeholder="Search articles…">
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <nav class="navbar">
+    <div class="container">
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu"><img src="/icons/menu.svg" class="svg-icon"
+          alt="menu" style="filter:brightness(0) invert(1)"></button>
+      <a href="/dashboard.html" class="navbar-brand">Focus<span>Feed</span></a>
+      <div class="navbar-links">
+        <div class="search-bar" style="max-width:260px">
+          <span class="search-icon"><img src="/icons/magnifier.svg" class="svg-icon svg-icon-sm" alt="search"></span>
+          <input type="text" id="search-input" placeholder="Search articles…">
+        </div>
+        <button onclick="toggleTheme()" class="theme-toggle-btn" title="Toggle theme">
+          <img id="theme-icon" src="/icons/moon.svg" alt="theme">
+        </button>
+        <div id="nav-user-avatar" class="sidebar-avatar" style="margin-left:8px;cursor:default">U</div>
       </div>
-      <div id="nav-user-avatar" class="sidebar-avatar" style="margin-left:8px;cursor:default">U</div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<div class="app-layout">
-  <aside class="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-section-label">Menu</div>
-      <a href="/dashboard.html" class="sidebar-link active"><span class="link-icon"><img src="/icons/laptop.svg" class="svg-icon svg-icon-sm" alt=""></span> My Feed</a>
-      <a href="/bookmarks.html" class="sidebar-link"><span class="link-icon"><img src="/icons/bookmark.svg" class="svg-icon svg-icon-sm" alt=""></span> Bookmarks</a>
-      <a href="/profile.html"   class="sidebar-link"><span class="link-icon"><img src="/icons/person.svg" class="svg-icon svg-icon-sm" alt=""></span> Profile</a>
-    </div>
-    <div class="sidebar-section" style="margin-top:8px">
-      <div class="sidebar-section-label">Interests</div>
-      <a href="/interests.html" class="sidebar-link"><span class="link-icon"><img src="/icons/arrow.svg" class="svg-icon svg-icon-sm" alt=""></span> Edit Interests</a>
-    </div>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Menu</div>
+        <a href="/dashboard.html" class="sidebar-link active"><span class="link-icon"><img src="/icons/laptop.svg"
+              class="svg-icon svg-icon-sm" alt=""></span> My Feed</a>
+        <a href="/bookmarks.html" class="sidebar-link"><span class="link-icon"><img src="/icons/bookmark.svg"
+              class="svg-icon svg-icon-sm" alt=""></span> Bookmarks</a>
+        <a href="/profile.html" class="sidebar-link"><span class="link-icon"><img src="/icons/person.svg"
+              class="svg-icon svg-icon-sm" alt=""></span> Profile</a>
+      </div>
+      <div class="sidebar-section" style="margin-top:8px">
+        <div class="sidebar-section-label">Interests</div>
+        <a href="/interests.html" class="sidebar-link"><span class="link-icon"><img src="/icons/arrow.svg"
+              class="svg-icon svg-icon-sm" alt=""></span> Edit Interests</a>
+      </div>
 
-    <div class="sidebar-section" id="admin-section" style="margin-top:8px;display:none">
-      <div class="sidebar-section-label">Admin</div>
-      <a href="/admin-dashboard.html" class="sidebar-link" style="color:var(--violet-primary);font-weight:600">
-        <span class="link-icon"><img src="/icons/setting.svg" class="svg-icon svg-icon-sm" alt=""></span> Admin Panel
-      </a>
-    </div>
+      <div class="sidebar-section" id="admin-section" style="margin-top:8px;display:none">
+        <div class="sidebar-section-label">Admin</div>
+        <a href="/admin-dashboard.html" class="sidebar-link" style="color:var(--violet-primary);font-weight:600">
+          <span class="link-icon"><img src="/icons/setting.svg" class="svg-icon svg-icon-sm" alt=""></span> Admin Panel
+        </a>
+      </div>
 
-    <div class="sidebar-user">
-      <div class="sidebar-user-info" onclick="window.location.href='/profile.html'">
-        <div class="sidebar-avatar" id="nav-user-avatar-side">U</div>
+      <div class="sidebar-user">
+        <div class="sidebar-user-info" onclick="window.location.href='/profile.html'">
+          <div class="sidebar-avatar" id="nav-user-avatar-side">U</div>
+          <div>
+            <div class="sidebar-user-name" id="nav-user-name">User</div>
+            <div class="sidebar-user-email">View Profile</div>
+          </div>
+        </div>
+        <button onclick="Auth.logout()" class="sidebar-link" style="width:100%;margin-top:6px">
+          <span class="link-icon"><img src="/icons/door.svg" class="svg-icon svg-icon-sm" alt=""></span> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
         <div>
-          <div class="sidebar-user-name" id="nav-user-name">User</div>
-          <div class="sidebar-user-email">View Profile</div>
+          <p id="greeting" class="page-subtitle"
+            style="font-size:1rem;font-weight:500;color:var(--text-soft);margin-bottom:4px"></p>
+          <h1 class="page-title" id="feed-title">Your Feed</h1>
         </div>
       </div>
-      <button onclick="Auth.logout()" class="sidebar-link" style="width:100%;margin-top:6px">
-        <span class="link-icon"><img src="/icons/door.svg" class="svg-icon svg-icon-sm" alt=""></span> Sign Out
-      </button>
-    </div>
-  </aside>
-
-  <main class="main-content">
-    <div class="page-header">
-      <div>
-        <p id="greeting" class="page-subtitle" style="font-size:1rem;font-weight:500;color:var(--text-soft);margin-bottom:4px"></p>
-        <h1 class="page-title" id="feed-title">Your Feed</h1>
+      <div class="filter-row" id="filter-row"></div>
+      <div class="feed-grid" id="feed-grid"></div>
+      <div style="text-align:center;margin-top:32px">
+        <button id="load-more-btn" class="btn btn-outline" style="display:none">Load More Articles</button>
       </div>
-    </div>
-    <div class="filter-row" id="filter-row"></div>
-    <div class="feed-grid" id="feed-grid"></div>
-    <div style="text-align:center;margin-top:32px">
-      <button id="load-more-btn" class="btn btn-outline" style="display:none">Load More Articles</button>
-    </div>
-  </main>
-</div>
-
-<div id="toast-container"></div>
-<script src="/js/api.js"></script>
-<script src="/js/auth.js"></script>
-<script src="/js/utils.js"></script>
-<script src="/js/dashboard.js"></script>
-<script>
-  initDashboard();
-  const _u = getUser();
-  if (_u && _u.role === 'admin') {
-    document.getElementById('admin-section').style.display = 'block';
-  }
-</script>
-
-<nav class="bottom-nav">
-  <div class="bottom-nav-items">
-    <a href="/dashboard.html" class="bottom-nav-item active">
-      <img src="/icons/laptop.svg" alt="feed">
-      Feed
-    </a>
-    <a href="/bookmarks.html" class="bottom-nav-item">
-      <img src="/icons/bookmark.svg" alt="bookmarks">
-      Saved
-    </a>
-    <a href="/profile.html" class="bottom-nav-item">
-      <img src="/icons/person.svg" alt="profile">
-      Profile
-    </a>
-    <a href="/interests.html" class="bottom-nav-item">
-      <img src="/icons/arrow.svg" alt="interests">
-      Interests
-    </a>
+    </main>
   </div>
-</nav>
+
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <script>
+    initDashboard();
+    const _u = getUser();
+    if (_u && _u.role === 'admin') {
+      document.getElementById('admin-section').style.display = 'block';
+    }
+  </script>
+
+  <nav class="bottom-nav">
+    <div class="bottom-nav-items">
+      <a href="/dashboard.html" class="bottom-nav-item active">
+        <img src="/icons/laptop.svg" alt="feed">
+        Feed
+      </a>
+      <a href="/bookmarks.html" class="bottom-nav-item">
+        <img src="/icons/bookmark.svg" alt="bookmarks">
+        Saved
+      </a>
+      <a href="/profile.html" class="bottom-nav-item">
+        <img src="/icons/person.svg" alt="profile">
+        Profile
+      </a>
+      <a href="/interests.html" class="bottom-nav-item">
+        <img src="/icons/arrow.svg" alt="interests">
+        Interests
+      </a>
+    </div>
+  </nav>
 
 
 
 </body>
+
 </html>

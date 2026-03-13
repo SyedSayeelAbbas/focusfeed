@@ -3,14 +3,41 @@
    ============================================ */
 
 async function initArticlePage() {
-  if (!await requireAuth()) return;                                                    // FIX 1: added await
+  if (!await requireAuth()) return;
   initNavUser();
 
-  const articleId = sessionStorage.getItem('ff_article_id');
-  if (!articleId) { window.location.href = '/dashboard.html'; return; } // FIX 2: correct path
+  // Support shareable URLs: /article.html?id=xyz
+  const params = new URLSearchParams(window.location.search);
+  const urlId = params.get('id');
+  const sessionId = sessionStorage.getItem('ff_article_id');
+  const articleId = urlId || sessionId;
 
-  const article = getCachedArticle(articleId);
-  if (!article) { window.location.href = '/dashboard.html'; return; }   // FIX 3: correct path
+  if (!articleId) { window.location.href = '/dashboard.html'; return; }
+
+  let article = getCachedArticle(articleId);
+
+  // If not in cache (shared link), try to fetch from backend
+  if (!article && urlId) {
+    try {
+      const res = await fetch(`${window.location.origin}/api/articles/preview?id=${encodeURIComponent(urlId)}`);
+      if (res.ok) {
+        const data = await res.json();
+        article = data.data?.article;
+        if (article) cacheArticle(article);
+      }
+    } catch(e) {}
+  }
+
+  if (!article) { window.location.href = '/dashboard.html'; return; }
+
+  // Update URL to be shareable
+  if (!urlId && sessionId) {
+    history.replaceState(null, '', `/article.html?id=${encodeURIComponent(sessionId)}`);
+  }
+
+  // Mark as read
+  if (typeof markAsRead === 'function') markAsRead(articleId);
+  if (typeof addToHistory === 'function') addToHistory(article);
 
   renderArticle(article);
 }
@@ -72,10 +99,12 @@ function renderArticle(article) {
   if (shareBtn) {
     shareBtn.addEventListener('click', () => {
       if (navigator.share) {
-        navigator.share({ title: article.title, url: article.url });
+        const shareUrl = `${window.location.origin}/article.html?id=${encodeURIComponent(article.articleId)}`;
+        navigator.share({ title: article.title, url: shareUrl });
       } else {
-        navigator.clipboard.writeText(article.url);
-        showToast('Link copied!', 'success');
+        const shareUrl = `${window.location.origin}/article.html?id=${encodeURIComponent(article.articleId)}`;
+        navigator.clipboard.writeText(shareUrl);
+        showToast('Shareable link copied!', 'success');
       }
     });
   }

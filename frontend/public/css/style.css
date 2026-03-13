@@ -223,7 +223,7 @@ img {
   height: calc(100vh - var(--navbar-height));
   background: var(--bg-secondary);
   border-right: 1px solid var(--border-color);
-  padding: 24px 16px;
+  padding: 16px 16px;
   display: flex;
   flex-direction: column;
   z-index: 100;
@@ -995,4 +995,58 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   .sidebar-user .sidebar-link:last-child:hover {
     background: rgba(239, 68, 68, 0.15) !important;
   }
+}
+
+/* ============================================
+   PAGE TRANSITIONS
+   ============================================ */
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+/* Apply fade to body so fixed children (sidebar) stay fixed relative to viewport */
+body {
+  animation: pageFadeIn 0.25s ease both;
+}
+
+/* ============================================
+   DARK MODE TOGGLE BUTTON
+   ============================================ */
+.theme-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+  flex-shrink: 0;
+}
+.theme-toggle-btn:hover {
+  background: rgba(255,255,255,0.28);
+}
+.theme-toggle-btn img {
+  width: 16px !important;
+  height: 16px !important;
+  filter: brightness(0) invert(1);
+}
+
+/* ============================================
+   AUTH PAGE FIXES — no navbar offset
+   ============================================ */
+.auth-page {
+  /* Override any inherited padding from body */
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Ensure toast is always visible on all pages */
+#toast-container {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 99999 !important;
 }

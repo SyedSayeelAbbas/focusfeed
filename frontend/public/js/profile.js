@@ -14,6 +14,7 @@ async function initProfilePage() {
   await loadProfileData();
   initProfileTabs();
   initProfileForms(user);
+  renderReadingHistory();
 }
 
 /* ── Theme Engine ── */
@@ -40,6 +41,11 @@ function renderProfileCard(user) {
 }
 
 async function loadProfileData() {
+  // Show skeleton on interests grid while loading
+  const grid = document.getElementById('interests-edit-grid');
+  if (grid) grid.innerHTML = Array(6).fill(0).map(() =>
+    `<div class="article-card-skeleton" style="height:80px;border-radius:12px"></div>`
+  ).join('');
   try {
     const [profileData, bookmarkData] = await Promise.all([
       User.getProfile(),
@@ -200,3 +206,43 @@ function initProfileTabs() {
     if (tabs.length) tabs[0].classList.add('active');
   }
 }
+
+/* ── Reading History Panel ── */
+function renderReadingHistory() {
+  const panel = document.getElementById('panel-history');
+  if (!panel) return;
+  const history = JSON.parse(localStorage.getItem('ff_history') || '[]');
+  if (!history.length) {
+    panel.innerHTML = `
+      <h3 style="margin-bottom:16px">Reading History</h3>
+      <div class="empty-state" style="padding:40px 20px">
+        <div class="empty-icon" style="font-size:3rem;margin-bottom:16px">📖</div>
+        <h3>No history yet</h3>
+        <p>Articles you open will appear here.</p>
+      </div>`;
+    return;
+  }
+  panel.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <h3>Reading History</h3>
+      <button onclick="clearReadingHistory()" class="btn btn-outline btn-sm" style="font-size:0.8rem;padding:6px 14px">Clear History</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      ${history.map(a => `
+        <div class="article-card" style="flex-direction:row;gap:12px;padding:14px;cursor:pointer;align-items:flex-start" onclick="window.open('${a.url || '#'}','_blank')">
+          <div style="flex:1;min-width:0">
+            <div style="font-size:0.75rem;color:var(--violet-primary);font-weight:600;margin-bottom:4px;text-transform:capitalize">${a.source || 'Unknown'} · ${a.category || 'general'}</div>
+            <div style="font-size:0.9rem;font-weight:600;color:var(--text-main);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${a.title || 'Untitled'}</div>
+            <div style="font-size:0.75rem;color:var(--text-soft);margin-top:6px">Read ${formatDate(a.readAt)}</div>
+          </div>
+          <span style="font-size:0.75rem;color:var(--text-soft);flex-shrink:0">↗</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+window.clearReadingHistory = () => {
+  localStorage.removeItem('ff_history');
+  localStorage.removeItem('ff_read');
+  renderReadingHistory();
+  showToast('History cleared.', 'default');
+};

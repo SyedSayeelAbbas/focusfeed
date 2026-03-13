@@ -13,7 +13,9 @@ async function initBookmarksPage() {
 async function loadBookmarks() {
   const grid = document.getElementById('bookmarks-grid');
   const countEl = document.getElementById('bookmark-count');
-  if (grid) grid.innerHTML = '<div class="spinner"></div>';
+  if (grid) grid.innerHTML = Array(4).fill(0).map(() =>
+    `<div class="article-card-skeleton" style="height:280px"></div>`
+  ).join('');
 
   try {
     const data = await Bookmarks.getAll();

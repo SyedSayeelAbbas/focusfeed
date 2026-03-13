@@ -1,3 +1,35 @@
+/* ── Theme Bootstrap — runs immediately on every page ── */
+(function() {
+  try {
+    const user = sessionStorage.getItem('ff_user');
+    const theme = (user ? JSON.parse(user).theme : null) || localStorage.getItem('ff_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    document.body && document.body.setAttribute('data-theme', theme);
+    // Re-apply once body is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.setAttribute('data-theme', theme);
+      const icon = document.getElementById('theme-icon');
+      if (icon) icon.src = theme === 'dark' ? '/icons/flash.svg' : '/icons/moon.svg';
+    });
+  } catch(e) {}
+})();
+
+/* ── Global Theme Toggle ── */
+function toggleTheme() {
+  const current = document.body.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', next);
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('ff_theme', next);
+  const icon = document.getElementById('theme-icon');
+  if (icon) icon.src = next === 'dark' ? '/icons/flash.svg' : '/icons/moon.svg';
+  // Persist to user object
+  try {
+    const u = getUser && getUser();
+    if (u) { u.theme = next; sessionStorage.setItem('ff_user', JSON.stringify(u)); }
+  } catch(e) {}
+}
+
 /* ============================================
    FOCUSFEED — API Layer
    All backend communication goes through here.
@@ -36,8 +68,13 @@ async function apiFetch(endpoint, options = {}) {
   if (res.status === 401) {
     removeToken();
     removeUser();
-    window.location.href = '/login.html';
-    throw new Error(data.message || 'Session expired. Please sign in again.');
+    // Don't redirect if already on auth pages — just throw so the form can show the error
+    const authPages = ['/login.html', '/signup.html', '/index.html', '/'];
+    const isAuthPage = authPages.some(p => window.location.pathname === p || window.location.pathname.endsWith(p));
+    if (!isAuthPage) {
+      window.location.href = '/login.html';
+    }
+    throw new Error(data.message || 'Invalid email or password.');
   }
 
   if (!res.ok) {

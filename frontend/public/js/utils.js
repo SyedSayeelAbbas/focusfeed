@@ -78,6 +78,48 @@ function categoryIcon(cat) {
   return `<img src="/icons/${name}.svg" class="svg-icon svg-icon-sm" alt="${cat || 'general'}" style="vertical-align:middle">`;
 }
 
+
+/* ── Reading Time Estimate ── */
+function readingTime(text) {
+  if (!text) return '1 min read';
+  const words = text.trim().split(/\s+/).length;
+  const mins = Math.max(1, Math.round(words / 200));
+  return `${mins} min read`;
+}
+
+/* ── Read Articles Tracker ── */
+function markAsRead(articleId) {
+  const read = JSON.parse(localStorage.getItem('ff_read') || '[]');
+  if (!read.includes(articleId)) {
+    read.unshift(articleId);
+    localStorage.setItem('ff_read', JSON.stringify(read.slice(0, 100)));
+  }
+}
+function isRead(articleId) {
+  const read = JSON.parse(localStorage.getItem('ff_read') || '[]');
+  return read.includes(articleId);
+}
+
+/* ── Reading History ── */
+function addToHistory(article) {
+  if (!article || !article.articleId) return;
+  const history = JSON.parse(localStorage.getItem('ff_history') || '[]');
+  const filtered = history.filter(a => a.articleId !== article.articleId);
+  filtered.unshift({
+    articleId: article.articleId,
+    title: article.title,
+    source: article.source,
+    category: article.category,
+    url: article.url,
+    publishedAt: article.publishedAt,
+    readAt: new Date().toISOString()
+  });
+  localStorage.setItem('ff_history', JSON.stringify(filtered.slice(0, 20)));
+}
+function getHistory() {
+  return JSON.parse(localStorage.getItem('ff_history') || '[]');
+}
+
 /* ── Build Article Card HTML ── */
 function buildArticleCard(article, index = 0) {
   const isFeatured = index === 0;
@@ -86,8 +128,9 @@ function buildArticleCard(article, index = 0) {
     : `<div class="article-card-image-placeholder">${categoryIcon(article.category)}</div>`;
 
   const encoded = encodeURIComponent(JSON.stringify(article));
+  const readClass = isRead(article.articleId) ? ' read' : '';
   return `
-    <div class="article-card${isFeatured ? ' featured' : ''}" onclick="openArticle('${article.articleId}', ${index})">
+    <div class="article-card${isFeatured ? ' featured' : ''}${readClass}" onclick="openArticle('${article.articleId}', ${index})">
       ${imgHtml}
       <div class="article-card-body">
         <div class="article-card-meta">
@@ -96,6 +139,7 @@ function buildArticleCard(article, index = 0) {
         </div>
         <div class="article-card-title">${article.title || 'Untitled'}</div>
         ${article.description ? `<div class="article-card-desc">${truncate(article.description)}</div>` : ''}
+        <div class="article-card-reading-time">${readingTime((article.description || '') + ' ' + (article.content || ''))}</div>
       </div>
       <div class="article-card-footer">
         <span class="badge badge-amber">${article.category || 'general'}</span>

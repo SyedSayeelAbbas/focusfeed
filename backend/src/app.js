@@ -37,5 +37,16 @@ app.get('/', (req, res) => {
 
 app.use(errorMiddleware);
 
+// 404 — must be after all routes and errorMiddleware
+app.use((req, res, next) => {
+  // Only serve 404.html for non-API, non-asset requests
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ success: false, message: 'Route not found' });
+  }
+  res.status(404).sendFile('404.html', {
+    root: path.join(__dirname, '../../frontend/public')
+  });
+});
+
 
 module.exports = app;

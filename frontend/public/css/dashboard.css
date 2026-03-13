@@ -622,3 +622,120 @@
     flex-shrink: 1 !important;
   }
 }
+
+/* ============================================
+   READING TIME INDICATOR
+   ============================================ */
+.article-card-reading-time {
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+.article-card-reading-time::before {
+  content: '⏱';
+  font-size: 0.65rem;
+}
+
+/* ============================================
+   READ INDICATOR
+   ============================================ */
+.article-card { position: relative; }
+.article-card.read {
+  opacity: 0.6;
+}
+.article-card.read .article-card-title {
+  color: var(--text-soft);
+}
+.article-card.read::after {
+  content: 'Read';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  background: var(--bg-tertiary);
+  color: var(--text-soft);
+  padding: 2px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--border-color);
+}
+
+/* ============================================
+   SEARCH SUGGESTIONS DROPDOWN
+   ============================================ */
+.search-suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 500;
+  overflow: hidden;
+  min-width: 220px;
+}
+.search-suggestions-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-soft);
+  padding: 10px 14px 6px;
+}
+.search-suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.search-suggestion-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+}
+
+/* ============================================
+   NOTIFICATION BADGE
+   ============================================ */
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 0.58rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ============================================
+   LAYOUT OVERFLOW FIX
+   ============================================ */
+.main-content {
+  overflow-x: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.bookmarks-grid {
+  max-width: 100%;
+}
