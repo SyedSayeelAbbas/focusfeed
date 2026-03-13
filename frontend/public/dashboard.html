@@ -108,18 +108,6 @@
 </nav>
 
 
-<script>
-(function(){
-  var btn = document.getElementById('hamburger-btn');
-  var sidebar = document.querySelector('.sidebar, .admin-sidebar');
-  var overlay = document.getElementById('sidebar-overlay');
-  function open(){ sidebar&&sidebar.classList.add('open'); overlay&&overlay.classList.add('active'); document.body.style.overflow='hidden'; }
-  function close(){ sidebar&&sidebar.classList.remove('open'); overlay&&overlay.classList.remove('active'); document.body.style.overflow=''; }
-  btn&&btn.addEventListener('click',function(){ sidebar&&sidebar.classList.contains('open')?close():open(); });
-  overlay&&overlay.addEventListener('click', close);
-  sidebar&&sidebar.querySelectorAll('a,button').forEach(function(el){ el.addEventListener('click',function(){ if(window.innerWidth<=1024)close(); }); });
-})();
-</script>
 
 </body>
 </html>

@@ -564,8 +564,61 @@
   }
 
   .filter-row {
-    overflow-x: auto;
-    flex-wrap: nowrap;
+    overflow-x: visible;
+    flex-wrap: wrap;
     padding-bottom: 4px;
+  }
+}
+
+/* ============================================
+   DASHBOARD MOBILE — Feed Grid & Filter Chips
+   ============================================ */
+
+/* Feed cards: single column on mobile like bookmarks */
+@media (max-width: 600px) {
+  .feed-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .article-card.featured {
+    grid-column: span 1 !important;
+  }
+
+  /* Filter chips: wrap into rows, NOT horizontal scroll */
+  .filter-row {
+    flex-wrap: wrap !important;
+    overflow-x: visible !important;
+    gap: 8px !important;
+  }
+  .filter-chip {
+    flex-shrink: 1 !important;
+    font-size: 0.8rem !important;
+    padding: 7px 12px !important;
+  }
+
+  /* Main content padding */
+  .main-content {
+    padding: 14px !important;
+    padding-bottom: 80px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .feed-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .article-card.featured {
+    grid-column: span 1 !important;
+  }
+
+  /* Chips wrap into rows on all mobile sizes */
+  .filter-row {
+    flex-wrap: wrap !important;
+    overflow-x: visible !important;
+    gap: 8px !important;
+  }
+  .filter-chip {
+    flex-shrink: 1 !important;
   }
 }

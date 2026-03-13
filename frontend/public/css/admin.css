@@ -361,15 +361,19 @@
 }
 
 /* Responsive */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .admin-sidebar {
     transform: translateX(-100%);
+    position: fixed;
+    z-index: 200;
+    transition: transform 0.3s ease;
   }
-
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
   .admin-content {
     margin-left: 0;
   }
-
   .metrics-grid {
     grid-template-columns: repeat(2, 1fr);
   }
