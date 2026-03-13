@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 
-<body>
+<body class="has-mobile-search">
 
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
   <nav class="navbar">
@@ -18,9 +18,11 @@
           alt="menu" style="filter:brightness(0) invert(1)"></button>
       <a href="/dashboard.html" class="navbar-brand">Focus<span>Feed</span></a>
       <div class="navbar-links">
-        <div class="search-bar" style="max-width:260px">
-          <span class="search-icon"><img src="/icons/magnifier.svg" class="svg-icon svg-icon-sm" alt="search"></span>
-          <input type="text" id="search-input" placeholder="Search articles…">
+        <div class="navbar-search-wrap" style="max-width:260px">
+          <div class="search-bar">
+            <span class="search-icon"><img src="/icons/magnifier.svg" class="svg-icon svg-icon-sm" alt="search"></span>
+            <input type="text" id="search-input-desktop" placeholder="Search articles…">
+          </div>
         </div>
         <button onclick="toggleTheme()" class="theme-toggle-btn" title="Toggle theme">
           <img id="theme-icon" src="/icons/moon.svg" alt="theme">
@@ -29,6 +31,14 @@
       </div>
     </div>
   </nav>
+
+  <!-- Mobile search bar (shown below navbar on small screens) -->
+  <div class="mobile-search-bar" style="display:none">
+    <div class="search-bar">
+      <span class="search-icon"><img src="/icons/magnifier.svg" class="svg-icon svg-icon-sm" alt="search"></span>
+      <input type="text" id="search-input" placeholder="Search articles…">
+    </div>
+  </div>
 
   <div class="app-layout">
     <aside class="sidebar">

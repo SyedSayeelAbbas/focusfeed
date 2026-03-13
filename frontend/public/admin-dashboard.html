@@ -16,7 +16,10 @@
     <a href="/admin-dashboard.html" class="navbar-brand">Focus<span>Feed</span> <span style="font-size:0.65rem;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.5);margin-left:6px;font-weight:500">ADMIN</span></a>
     <div class="navbar-links">
       <a href="/dashboard.html" class="hide-mobile">← User View</a>
-      <div id="nav-user-avatar" class="sidebar-avatar">A</div>
+        <button onclick="toggleTheme()" class="theme-toggle-btn" title="Toggle theme">
+          <img id="theme-icon" src="/icons/moon.svg" alt="theme">
+        </button>
+        <div id="nav-user-avatar" class="sidebar-avatar" style="margin-left:8px;cursor:default">A</div>
     </div>
   </div>
 </nav>

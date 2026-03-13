@@ -19,20 +19,41 @@ async function initDashboard() {
   await loadFeed();
   updateNotificationBadge();
 
-  const searchInput = document.getElementById('search-input');
+  // Support both desktop (in navbar) and mobile (below navbar) search inputs
+  const searchInputDesktop = document.getElementById('search-input-desktop');
+  const searchInputMobile  = document.getElementById('search-input');
+  // Use whichever is visible, fall back to mobile
+  const searchInput = searchInputMobile || searchInputDesktop;
+  // Sync inputs so both work
+  function syncSearch(val) {
+    if (searchInputDesktop) searchInputDesktop.value = val;
+    if (searchInputMobile)  searchInputMobile.value  = val;
+  }
   let searchTimer;
-  searchInput?.addEventListener('focus', () => showSearchSuggestions(searchInput));
-  searchInput?.addEventListener('input', (e) => {
-    clearTimeout(searchTimer);
-    const q = e.target.value.trim();
-    hideSearchSuggestions();
-    if (q.length < 2) { if (!q) loadFeed(); return; }
-    searchTimer = setTimeout(() => runSearch(q), 500);
-  });
-  searchInput?.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') { clearTimeout(searchTimer); hideSearchSuggestions(); runSearch(e.target.value.trim()); }
-    if (e.key === 'Escape') hideSearchSuggestions();
-  });
+  // Wire events on both mobile and desktop search inputs
+  function wireSearchInput(el) {
+    if (!el) return;
+    el.addEventListener('focus', () => showSearchSuggestions(el));
+    el.addEventListener('blur', () => setTimeout(hideSearchSuggestions, 200));
+    el.addEventListener('input', (e) => {
+      syncSearch(e.target.value);
+      const q = e.target.value.trim();
+      if (q.length > 1) showSearchSuggestions(el);
+      else hideSearchSuggestions();
+    });
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const q = e.target.value.trim();
+        hideSearchSuggestions();
+        if (q) { saveSearchHistory(q); runSearch(q); }
+        else { currentCategory = null; loadFeed(); }
+      }
+    });
+  }
+  wireSearchInput(searchInputMobile);
+  wireSearchInput(searchInputDesktop);
+
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.search-bar')) hideSearchSuggestions();
   });
@@ -301,7 +322,7 @@ function showSearchSuggestions(input) {
   box.innerHTML = `
     <div class="search-suggestions-label">Recent Searches</div>
     ${history.map(q => `
-      <div class="search-suggestion-item" onclick="document.getElementById('search-input').value='${q.replace(/'/g,"\'")}';hideSearchSuggestions();runSearch('${q.replace(/'/g,"\'")}')">
+      <div class="search-suggestion-item" onclick="if(document.getElementById('search-input'))document.getElementById('search-input').value='${q.replace(/'/g,"\'")}';hideSearchSuggestions();runSearch('${q.replace(/'/g,"\'")}')">
         <span style="opacity:0.4;font-size:0.8rem">🔍</span> ${q}
         <button onclick="event.stopPropagation();removeSearchHistory('${q.replace(/'/g,"\'")}');" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--text-soft);font-size:0.8rem;padding:0 4px">✕</button>
       </div>`).join('')}
@@ -318,7 +339,7 @@ function hideSearchSuggestions() {
 window.removeSearchHistory = (q) => {
   const history = JSON.parse(localStorage.getItem('ff_search_history') || '[]');
   localStorage.setItem('ff_search_history', JSON.stringify(history.filter(h => h !== q)));
-  const input = document.getElementById('search-input');
+  const input = document.getElementById('search-input') || document.getElementById('search-input-desktop');
   if (input) showSearchSuggestions(input);
 };
 

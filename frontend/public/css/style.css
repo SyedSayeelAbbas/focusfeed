@@ -824,8 +824,69 @@ img.svg-icon-xl { width: 32px; height: 32px; }
 
 @media (max-width: 480px) {
   :root { --navbar-height: 56px; }
-  .search-bar { display: none; }
   .main-content { padding: 12px; padding-bottom: 76px; }
+}
+
+/* ============================================
+   MOBILE SEARCH BAR — full width below navbar
+   ============================================ */
+@media (max-width: 768px) {
+  /* Hide the search bar from the navbar on mobile */
+  .navbar-search-wrap { display: none; }
+
+  /* Show a full-width search bar pinned just below the navbar */
+  .mobile-search-bar {
+    display: flex !important;
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 8px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .mobile-search-bar .search-bar {
+    display: flex !important;
+    width: 100%;
+    max-width: 100% !important;
+  }
+
+  /* Override navbar white-on-purple styles for mobile search bar */
+  .mobile-search-bar .search-bar input {
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: var(--radius-xl);
+  }
+  .mobile-search-bar .search-bar input::placeholder {
+    color: var(--text-soft);
+  }
+  .mobile-search-bar .search-bar input:focus {
+    background: var(--bg-secondary);
+    border-color: var(--violet-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(109,40,217,0.12);
+  }
+  .mobile-search-bar .search-icon img {
+    filter: none;
+  }
+
+  /* Push the app-layout down to account for mobile search bar (40px bar + 8+8 padding = 56px) */
+  .has-mobile-search .app-layout {
+    margin-top: calc(var(--navbar-height) + 52px);
+  }
+
+  .has-mobile-search .sidebar {
+    top: calc(var(--navbar-height) + 52px);
+    height: calc(100vh - var(--navbar-height) - 52px);
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-search-bar { display: none !important; }
 }
 /* ============================================
    MOBILE FIXES — Hamburger, Sidebar, Sign Out
