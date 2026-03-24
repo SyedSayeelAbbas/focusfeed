@@ -1,8 +1,5 @@
 const axios = require("axios");
 
-/* ============================================
-   API CONFIG
-   ============================================ */
 const NEWS_API_BASE  = "https://newsapi.org/v2";
 const GNEWS_API_BASE = "https://gnews.io/api/v4";
 const MEDIASTACK_BASE = "http://api.mediastack.com/v1";
@@ -15,9 +12,7 @@ const MEDIASTACK_KEY = process.env.MEDIASTACK_KEY;
 const THENEWSAPI_KEY = process.env.THENEWSAPI_KEY;
 const CURRENTS_KEY   = process.env.CURRENTS_KEY;
 
-/* ============================================
-   CACHE — 30 min TTL
-   ============================================ */
+
 const cache = new Map();
 const CACHE_TTL = 30 * 60 * 1000;
 
@@ -35,9 +30,6 @@ function cacheSet(key, data) {
   console.log(`[Cache] SET: ${key} → ${data.length} articles`);
 }
 
-/* ============================================
-   CATEGORY MAPPINGS
-   ============================================ */
 const NEWSAPI_CAT = {
   technology: "technology", science: "science", health: "health",
   business: "business", sports: "sports", entertainment: "entertainment",
@@ -82,9 +74,6 @@ const KEYWORDS = {
   religion:      "religion church mosque temple faith worship",
 };
 
-/* ============================================
-   NORMALIZERS
-   ============================================ */
 const norm = (articleId, title, description, url, urlToImage, source, publishedAt, content, category) => ({
   articleId, title: title || "No Title", description: description || "",
   url: url || "", urlToImage: urlToImage || "",
@@ -98,11 +87,7 @@ const normalizeMediastack  = (a, i, cat) => norm(Buffer.from(a.url||`ms-${i}`).t
 const normalizeTheNewsAPI  = (a, i, cat) => norm(Buffer.from(a.url||`tn-${i}`).toString("base64").slice(0,40), a.title, a.description, a.url, a.image_url, a.source, a.published_at, "", cat);
 const normalizeCurrents    = (a, i, cat) => norm(Buffer.from(a.url||`cu-${i}`).toString("base64").slice(0,40), a.title, a.description, a.url, a.image, a.author, a.published, "", cat);
 
-/* ============================================
-   INDIVIDUAL FETCHERS — each returns [] on failure
-   All have a 5s timeout to prevent hanging
-   ============================================ */
-const TIMEOUT = 5000; // 5 seconds max per API call
+const TIMEOUT = 5000;
 
 const fromNewsAPI = async (interest, pageSize) => {
   const category = NEWSAPI_CAT[interest];
@@ -212,11 +197,7 @@ const fromCurrents = async (interest, pageSize) => {
   } catch (e) { console.error(`[Currents] ${interest}:`, e.message); return []; }
 };
 
-/* ============================================
-   SMART FETCHER — PARALLEL (KEY CHANGE)
-   Fire ALL relevant APIs at once, use first
-   that returns ≥5 articles. No more waiting in line.
-   ============================================ */
+
 
 const API_PRIORITY = {
   technology:    [fromNewsAPI, fromGNews, fromMediastack, fromTheNewsAPI, fromCurrents],
@@ -245,9 +226,6 @@ const fetchForInterest = async (interest, pageSize = 9) => {
 
   const apiFns = API_PRIORITY[interest] || [fromNewsAPI, fromGNews, fromMediastack, fromCurrents];
 
-  // ── PARALLEL RACE ──
-  // Fire all APIs simultaneously. Resolve as soon as any returns ≥5 articles.
-  // Others keep running but we use first good result.
   const result = await new Promise((resolve) => {
     let settled = false;
     let completed = 0;
@@ -278,7 +256,6 @@ const fetchForInterest = async (interest, pageSize = 9) => {
       }
     });
 
-    // Safety timeout — resolve with whatever we have after 8s
     setTimeout(() => {
       if (!settled) {
         settled = true;
@@ -294,16 +271,12 @@ const fetchForInterest = async (interest, pageSize = 9) => {
   return result;
 };
 
-/* ============================================
-   PUBLIC EXPORTS
-   ============================================ */
 
 const fetchByInterests = async (interests, language = "en", { page = 1, pageSize = 9 } = {}) => {
   const topInterests = interests.slice(0, 3);
   const perInterest  = Math.ceil(pageSize / topInterests.length);
   console.log(`\n[fetchByInterests] interests=[${topInterests.join(", ")}] PARALLEL`);
 
-  // All interests fire in parallel — total wait = slowest single interest, not sum of all
   const results = await Promise.all(
     topInterests.map(interest => fetchForInterest(interest, perInterest))
   );

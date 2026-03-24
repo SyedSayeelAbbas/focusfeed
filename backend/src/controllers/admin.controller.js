@@ -5,9 +5,9 @@ const analyticsService = require("../services/analytics.service");
 const { sendSuccess, sendError } = require("../utils/response");
 
 /**
- * @desc    Get all users (admin only)
- * @route   GET /api/admin/users
- * @access  Admin
+ * @desc   
+ * @route  
+ * @access  
  */
 const getAllUsers = async (req, res, next) => {
   try {
@@ -22,9 +22,9 @@ const getAllUsers = async (req, res, next) => {
 };
 
 /**
- * @desc    Deactivate or activate a user
- * @route   PUT /api/admin/users/:id/toggle
- * @access  Admin
+ * @desc    
+ * @route  
+ * @access  
  */
 const toggleUserStatus = async (req, res, next) => {
   try {
@@ -46,9 +46,9 @@ const toggleUserStatus = async (req, res, next) => {
 };
 
 /**
- * @desc    Get all categories
- * @route   GET /api/admin/categories
- * @access  Admin
+ * @desc    
+ * @route   
+ * @access
  */
 const getCategories = async (req, res, next) => {
   try {
@@ -60,9 +60,9 @@ const getCategories = async (req, res, next) => {
 };
 
 /**
- * @desc    Create a new category
- * @route   POST /api/admin/categories
- * @access  Admin
+ * @desc    
+ * @route   
+ * @access  
  */
 const createCategory = async (req, res, next) => {
   try {
@@ -75,9 +75,9 @@ const createCategory = async (req, res, next) => {
 };
 
 /**
- * @desc    Delete a category
- * @route   DELETE /api/admin/categories/:id
- * @access  Admin
+ * @desc    
+ * @route   
+ * @access 
  */
 const deleteCategory = async (req, res, next) => {
   try {
@@ -90,9 +90,9 @@ const deleteCategory = async (req, res, next) => {
 };
 
 /**
- * @desc    Get platform analytics
- * @route   GET /api/admin/analytics
- * @access  Admin
+ * @desc    
+ * @route   
+ * @access  
  */
 const getAnalytics = async (req, res, next) => {
   try {

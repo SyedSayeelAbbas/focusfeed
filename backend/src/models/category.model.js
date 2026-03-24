@@ -12,7 +12,6 @@ const categorySchema = new mongoose.Schema(
     label: {
       type: String,
       required: true,
-      // Display-friendly label e.g. "Technology"
     },
     icon: {
       type: String,

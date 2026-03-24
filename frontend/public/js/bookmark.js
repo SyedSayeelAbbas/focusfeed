@@ -1,11 +1,7 @@
-/* ============================================
-   FOCUSFEED — Bookmarks Page Logic
-   ============================================ */
-
 let bookmarksList = [];
 
 async function initBookmarksPage() {
-  if (!await requireAuth()) return;   // ✅ FIX: added await
+  if (!await requireAuth()) return;   
   initNavUser();
   await loadBookmarks();
 }

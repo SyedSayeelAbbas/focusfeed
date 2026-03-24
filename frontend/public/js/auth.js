@@ -1,18 +1,9 @@
-/* ============================================
-   FOCUSFEED — Auth Logic (login, signup, interests)
-   ============================================ */
-
-// Admin access code — change this to whatever secret you want
 const ADMIN_ACCESS_CODE = "focusfeed@admin2026";
 
-/* ─────────────────────────────────────────────
-   LOGIN PAGE
-   ───────────────────────────────────────────── */
 function initLoginPage() {
-  // Clear any stale localStorage tokens left from previous sessions
   localStorage.removeItem('ff_token');
   localStorage.removeItem('ff_user');
-  // Only redirect if actively logged in this session (sessionStorage)
+
   if (Auth.isLoggedIn()) {
     const user = getUser();
     window.location.href = user?.role === 'admin'
@@ -56,11 +47,8 @@ function initLoginPage() {
   });
 }
 
-/* ─────────────────────────────────────────────
-   SIGNUP PAGE
-   ───────────────────────────────────────────── */
 function initSignupPage() {
-  // Clear any stale localStorage tokens left from previous sessions
+
   localStorage.removeItem('ff_token');
   localStorage.removeItem('ff_user');
   if (Auth.isLoggedIn()) { window.location.href = '/dashboard.html'; return; }
@@ -81,7 +69,6 @@ function initSignupPage() {
     if (password !== confirm) { showToast('Passwords do not match.', 'error'); return; }
     if (password.length < 6)  { showToast('Password must be at least 6 characters.', 'error'); return; }
 
-    // Validate admin access code before hitting the backend
     if (role === 'admin') {
       if (!adminCode) {
         showToast('Admin access code is required.', 'error'); return;
@@ -117,9 +104,6 @@ function initSignupPage() {
   });
 }
 
-/* ─────────────────────────────────────────────
-   INTERESTS PAGE
-   ───────────────────────────────────────────── */
 const ALL_INTERESTS = [
   { name: 'technology', label: 'Technology', icon: '<img src="/icons/Technology.svg" class="svg-icon svg-icon-sm" alt="">' },
   { name: 'science', label: 'Science', icon: '<img src="/icons/Science.svg" class="svg-icon svg-icon-sm" alt="">' },

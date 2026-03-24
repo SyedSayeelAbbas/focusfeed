@@ -6,7 +6,6 @@ const protect = async (req, res, next) => {
   try {
     let token;
 
-    // Extract token from Authorization header
     if (
       req.headers.authorization &&
       req.headers.authorization.startsWith("Bearer ")
@@ -18,10 +17,8 @@ const protect = async (req, res, next) => {
       return sendError(res, 401, "Not authorized. No token provided.");
     }
 
-    // Verify token
     const decoded = verifyToken(token);
 
-    // Attach user to request
     const user = await User.findById(decoded.id);
     if (!user || !user.isActive) {
       return sendError(res, 401, "User not found or account deactivated.");

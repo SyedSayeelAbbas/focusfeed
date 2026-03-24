@@ -3,9 +3,9 @@ const { generateToken } = require("../utils/jwt");
 const { sendSuccess, sendError } = require("../utils/response");
 
 /**
- * @desc    Register a new user
- * @route   POST /api/auth/register
- * @access  Public
+ * @desc    
+ * @route   
+ * @access  
  */
 const register = async (req, res, next) => {
   try {
@@ -16,7 +16,6 @@ const register = async (req, res, next) => {
       return sendError(res, 400, "Email is already registered.");
     }
 
-    // Only allow 'user' or 'admin' — default to 'user' if anything else passed
     const assignedRole = role === 'admin' ? 'admin' : 'user';
 
     const user = await User.create({
@@ -47,9 +46,9 @@ const register = async (req, res, next) => {
 };
 
 /**
- * @desc    Login user
- * @route   POST /api/auth/login
- * @access  Public
+ * @desc    
+ * @route   
+ * @access  
  */
 const login = async (req, res, next) => {
   try {
@@ -88,9 +87,9 @@ const login = async (req, res, next) => {
 };
 
 /**
- * @desc    Get currently logged-in user
- * @route   GET /api/auth/me
- * @access  Private
+ * @desc    
+ * @route   
+ * @access 
  */
 const getMe = async (req, res, next) => {
   try {
@@ -101,9 +100,9 @@ const getMe = async (req, res, next) => {
 };
 
 /**
- * @desc    Change user password
- * @route   PUT /api/auth/change-password
- * @access  Private
+ * @desc    
+ * @route   
+ * @access  
  */
 const changePassword = async (req, res, next) => {
   try {

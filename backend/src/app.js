@@ -18,28 +18,24 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ FIX: Serve frontend files from root
-// /css/style.css → frontend/public/css/style.css
-// /dashboard.html → frontend/public/dashboard.html
 app.use(express.static(path.join(__dirname, '../../frontend/public')));
 
-// API Routes
 app.use('/api/auth',      authRoutes);
 app.use('/api/users',     userRoutes);
 app.use('/api/articles',  articleRoutes);
 app.use('/api/bookmarks', bookmarkRoutes);
 app.use('/api/admin',     adminRoutes);
 
-// Fallback — serve index.html for root
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../../frontend/public/index.html'));
 });
 
 app.use(errorMiddleware);
 
-// 404 — must be after all routes and errorMiddleware
+
 app.use((req, res, next) => {
-  // Only serve 404.html for non-API, non-asset requests
+  
   if (req.path.startsWith('/api/')) {
     return res.status(404).json({ success: false, message: 'Route not found' });
   }

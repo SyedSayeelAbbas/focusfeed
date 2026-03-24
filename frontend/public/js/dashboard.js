@@ -1,7 +1,3 @@
-/* ============================================
-   FOCUSFEED — Dashboard Logic
-   ============================================ */
-
 let currentPage = 1;
 let currentCategory = 'all';
 let isLoading = false;
@@ -19,18 +15,16 @@ async function initDashboard() {
   await loadFeed();
   updateNotificationBadge();
 
-  // Support both desktop (in navbar) and mobile (below navbar) search inputs
   const searchInputDesktop = document.getElementById('search-input-desktop');
   const searchInputMobile  = document.getElementById('search-input');
-  // Use whichever is visible, fall back to mobile
+
   const searchInput = searchInputMobile || searchInputDesktop;
-  // Sync inputs so both work
+
   function syncSearch(val) {
     if (searchInputDesktop) searchInputDesktop.value = val;
     if (searchInputMobile)  searchInputMobile.value  = val;
   }
   let searchTimer;
-  // Wire events on both mobile and desktop search inputs
   function wireSearchInput(el) {
     if (!el) return;
     el.addEventListener('focus', () => showSearchSuggestions(el));
@@ -60,7 +54,6 @@ async function initDashboard() {
 
   document.getElementById('load-more-btn')?.addEventListener('click', loadMore);
 
-  // Infinite scroll
   window.addEventListener('scroll', () => {
     if (isLoading) return;
     const scrolled = window.scrollY + window.innerHeight;
@@ -71,7 +64,6 @@ async function initDashboard() {
     }
   });
 
-  // Mobile sidebar toggle
   (function() {
     const hamburger = document.getElementById('hamburger-btn');
     const sidebar   = document.querySelector('.sidebar');
@@ -96,7 +88,6 @@ async function initDashboard() {
     }
     overlay?.addEventListener('click', closeSidebar);
 
-    // Close sidebar when any link or button inside it is clicked on mobile
     sidebar?.querySelectorAll('a, button').forEach(el => {
       el.addEventListener('click', () => {
         if (window.innerWidth <= 1024) closeSidebar();
@@ -151,7 +142,6 @@ async function loadFeed() {
     renderFeed(allArticles);
     if (loadMoreBtn) loadMoreBtn.style.display = allArticles.length >= 5 ? 'inline-flex' : 'none';
   } catch (err) {
-    // Fallback: show top headlines if personal feed fails
     try {
       const fallback = await Articles.getTopHeadlines('general', 9);
       allArticles = (fallback.data.articles || []).map(a => ({...a, category: 'general'}));
@@ -174,8 +164,6 @@ async function loadTopHeadlines(category) {
     const data = await Articles.getTopHeadlines(category, 9);
     allArticles = data.data.articles || [];
 
-    // ✅ FIX: Force correct category label on every article so cards always
-    // show "music" not "entertainment", "environment" not "science", etc.
     allArticles = allArticles.map(a => ({ ...a, category }));
     allArticles.forEach(cacheArticle);
 
@@ -216,14 +204,11 @@ async function loadMore() {
   const btn = document.getElementById('load-more-btn');
   if (btn) { btn.disabled = true; btn.textContent = 'Loading…'; }
   try {
-    // Fetch top headlines for a different general category each time
-    // since news APIs don't support true pagination on free plans
     const fallbackCategories = ['world', 'technology', 'science', 'health', 'business', 'sports'];
     const cat = fallbackCategories[(currentPage - 2) % fallbackCategories.length];
     const data = await Articles.getTopHeadlines(cat, 10);
     const more = (data.data.articles || []).map(a => ({ ...a, category: cat }));
 
-    // Only add articles we haven't shown yet
     const existingUrls = new Set(allArticles.map(a => a.url));
     const fresh = more.filter(a => !existingUrls.has(a.url));
     fresh.forEach(cacheArticle);
@@ -237,7 +222,6 @@ async function loadMore() {
     if (btn) {
       btn.disabled = false;
       btn.textContent = 'Load More Articles';
-      // Hide after 4 loads to avoid infinite empty fetches
       btn.style.display = currentPage > 5 ? 'none' : 'inline-flex';
     }
   } catch (err) {
@@ -304,7 +288,6 @@ window.toggleBookmark = async (btn, article) => {
   }
 };
 
-/* ── Search History ── */
 function saveSearchHistory(q) {
   const history = JSON.parse(localStorage.getItem('ff_search_history') || '[]');
   const filtered = history.filter(h => h !== q);
@@ -343,7 +326,6 @@ window.removeSearchHistory = (q) => {
   if (input) showSearchSuggestions(input);
 };
 
-/* ── Notification Badge ── */
 function updateNotificationBadge() {
   const lastVisit = localStorage.getItem('ff_last_visit');
   const now = Date.now();

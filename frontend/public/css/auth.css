@@ -1,15 +1,8 @@
-/* ============================================
-   FOCUSFEED - Auth Pages Styles
-   Login, Signup, Interests
-   ============================================ */
-
-/* Auth Page Layout */
 .auth-page {
   min-height: 100vh;
   display: flex;
 }
 
-/* Left Panel - Branding */
 .auth-panel-left {
   flex: 0 0 45%;
   background: linear-gradient(135deg, #0f0f1a 0%, #1a1a35 100%);
@@ -88,7 +81,6 @@
   border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
-/* Right Panel - Form */
 .auth-panel-right {
   flex: 1;
   display: flex;
@@ -116,7 +108,6 @@
   margin-bottom: 32px;
 }
 
-/* Role Selector */
 .role-selector {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -183,7 +174,6 @@
   display: block;
 }
 
-/* Auth Divider */
 .auth-divider {
   display: flex;
   align-items: center;
@@ -201,7 +191,6 @@
   background: var(--border-color);
 }
 
-/* Auth Switch */
 .auth-switch {
   text-align: center;
   font-size: 0.9rem;
@@ -214,9 +203,6 @@
   font-weight: 600;
 }
 
-/* ============================================
-   INTERESTS PAGE
-   ============================================ */
 .interests-page {
   min-height: 100vh;
   padding: 100px 24px 40px;
@@ -305,8 +291,6 @@
   color: var(--text-soft);
   font-weight: 500;
 }
-
-/* Responsive */
 @media (max-width: 968px) {
   .auth-page {
     flex-direction: column;
@@ -336,11 +320,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-/* ============================================
-   SVG ICON SIZING — AUTH PAGES
-   ============================================ */
 
-/* Auth feature icons — left panel */
 .auth-feature-icon {
   width: 40px;
   height: 40px;
@@ -358,7 +338,6 @@
   object-fit: contain;
 }
 
-/* Role card icons — keep small and contained */
 .role-card-icon {
   display: flex;
   align-items: center;
@@ -372,7 +351,6 @@
   object-fit: contain;
 }
 
-/* Admin notice lock icon */
 .admin-notice img {
   width: 14px !important;
   height: 14px !important;

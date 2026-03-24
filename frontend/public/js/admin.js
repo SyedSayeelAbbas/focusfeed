@@ -1,9 +1,5 @@
-/* ============================================
-   FOCUSFEED — Admin Panel Logic
-   ============================================ */
-
 async function initAdminDashboard() {
-  if (!await requireAdmin()) return;   // ✅ FIX: added await
+  if (!await requireAdmin()) return;  
   initNavUser();
   await loadAdminAnalytics();
 }
@@ -45,9 +41,8 @@ function renderInterestBars(interests) {
     </div>`).join('');
 }
 
-/* ── Manage Users Page ── */
 async function initManageUsers() {
-  if (!await requireAdmin()) return;   // ✅ FIX: added await
+  if (!await requireAdmin()) return;
   initNavUser();
 
   const searchInput = document.getElementById('user-search');
@@ -102,7 +97,7 @@ function renderUsers(users) {
         </span>
       </td>
       <td>
-        <!-- ✅ FIX: use toggle-switch class that exists in admin.css -->
+        <!--  FIX: use toggle-switch class that exists in admin.css -->
         <div class="toggle-switch ${u.isActive ? 'active' : ''}"
              onclick="toggleUser('${u._id}', this)"
              title="${u.isActive ? 'Deactivate' : 'Activate'} user"
@@ -126,10 +121,10 @@ window.toggleUser = async (id, toggleEl) => {
     const user = allUsers.find(u => u._id === id);
     if (user) {
       user.isActive = !user.isActive;
-      // Update toggle appearance immediately
+
       toggleEl.classList.toggle('active', user.isActive);
       toggleEl.title = `${user.isActive ? 'Deactivate' : 'Activate'} user`;
-      // Update status badge in the same row
+
       const row = toggleEl.closest('tr');
       const badge = row?.querySelector('.badge.badge-success, .badge.badge-danger');
       if (badge) {
@@ -139,15 +134,14 @@ window.toggleUser = async (id, toggleEl) => {
     }
     showToast(`User ${user?.isActive ? 'activated' : 'deactivated'}.`, 'success');
   } catch (err) {
-    // Revert on failure
+
     toggleEl.classList.toggle('active');
     showToast(err.message, 'error');
   }
 };
 
-/* ── Reports Page ── */
 async function initReportsPage() {
-  if (!await requireAdmin()) return;   // ✅ FIX: added await
+  if (!await requireAdmin()) return; 
   initNavUser();
   await loadReports();
 }

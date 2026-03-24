@@ -1,12 +1,7 @@
-/* ============================================
-   FOCUSFEED — Profile Page Logic
-   ============================================ */
-
 async function initProfilePage() {
   if (!await requireAuth()) return;
   initNavUser();
 
-  // Apply saved theme immediately on load
   const user = getUser();
   applyTheme(user?.theme || 'dark');
 
@@ -17,10 +12,8 @@ async function initProfilePage() {
   renderReadingHistory();
 }
 
-/* ── Theme Engine ── */
 function applyTheme(theme) {
   document.body.setAttribute('data-theme', theme);
-  // Persist locally so it survives page refreshes before next API load
   const stored = getUser();
   if (stored) {
     stored.theme = theme;
@@ -41,7 +34,6 @@ function renderProfileCard(user) {
 }
 
 async function loadProfileData() {
-  // Show skeleton on interests grid while loading
   const grid = document.getElementById('interests-edit-grid');
   if (grid) grid.innerHTML = Array(6).fill(0).map(() =>
     `<div class="article-card-skeleton" style="height:80px;border-radius:12px"></div>`
@@ -61,7 +53,6 @@ async function loadProfileData() {
     const intCountEl = document.getElementById('interest-stat');
     if (intCountEl) intCountEl.textContent = user.interests?.length || 0;
 
-    // Apply theme from server (authoritative)
     if (user.theme) applyTheme(user.theme);
 
     renderInterestChips(user.interests || []);
@@ -126,14 +117,13 @@ function renderInterestChips(selected) {
 }
 
 function initProfileForms(user) {
-  // Profile edit form
+
   const editForm = document.getElementById('edit-profile-form');
   if (editForm) {
     if (editForm.elements['name'])     editForm.elements['name'].value     = user?.name     || '';
     if (editForm.elements['language']) editForm.elements['language'].value = user?.language || 'en';
     if (editForm.elements['theme'])    editForm.elements['theme'].value    = user?.theme    || 'dark';
 
-    // Live preview: apply theme instantly when dropdown changes
     const themeSelect = editForm.elements['theme'];
     if (themeSelect) {
       themeSelect.addEventListener('change', () => {
@@ -152,7 +142,7 @@ function initProfileForms(user) {
           theme:    editForm.elements['theme']?.value,
         };
         await User.updateProfile(payload);
-        applyTheme(payload.theme);   // apply after save confirmed
+        applyTheme(payload.theme); 
         showToast('Profile updated!', 'success');
         renderProfileCard(getUser());
         initNavUser();
@@ -164,7 +154,6 @@ function initProfileForms(user) {
     });
   }
 
-  // Password form
   const pwForm = document.getElementById('change-password-form');
   if (pwForm) {
     pwForm.addEventListener('submit', async (e) => {
@@ -207,7 +196,6 @@ function initProfileTabs() {
   }
 }
 
-/* ── Reading History Panel ── */
 function renderReadingHistory() {
   const panel = document.getElementById('panel-history');
   if (!panel) return;

@@ -1,9 +1,5 @@
 const { sendError } = require("../utils/response");
 
-/**
- * Restrict access to specific roles
- * Usage: restrictTo("admin") or restrictTo("admin", "moderator")
- */
 const restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {

@@ -24,7 +24,6 @@ const userSchema = new mongoose.Schema(
     interests: {
       type: [String],
       default: [],
-      // e.g. ["technology", "science", "health", "business"]
     },
     role: {
       type: String,
@@ -52,14 +51,12 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Hash password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 12);
   next();
 });
 
-// Compare entered password with hashed password
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

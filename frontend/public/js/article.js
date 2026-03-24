@@ -1,12 +1,7 @@
-/* ============================================
-   FOCUSFEED — Article View Logic
-   ============================================ */
-
 async function initArticlePage() {
   if (!await requireAuth()) return;
   initNavUser();
 
-  // Support shareable URLs: /article.html?id=xyz
   const params = new URLSearchParams(window.location.search);
   const urlId = params.get('id');
   const sessionId = sessionStorage.getItem('ff_article_id');
@@ -16,7 +11,6 @@ async function initArticlePage() {
 
   let article = getCachedArticle(articleId);
 
-  // If not in cache (shared link), try to fetch from backend
   if (!article && urlId) {
     try {
       const res = await fetch(`${window.location.origin}/api/articles/preview?id=${encodeURIComponent(urlId)}`);
@@ -30,12 +24,10 @@ async function initArticlePage() {
 
   if (!article) { window.location.href = '/dashboard.html'; return; }
 
-  // Update URL to be shareable
   if (!urlId && sessionId) {
     history.replaceState(null, '', `/article.html?id=${encodeURIComponent(sessionId)}`);
   }
 
-  // Mark as read
   if (typeof markAsRead === 'function') markAsRead(articleId);
   if (typeof addToHistory === 'function') addToHistory(article);
 

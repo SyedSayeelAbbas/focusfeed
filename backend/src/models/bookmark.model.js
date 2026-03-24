@@ -42,7 +42,6 @@ const bookmarkSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Prevent duplicate bookmarks for the same user + article
 bookmarkSchema.index({ user: 1, articleId: 1 }, { unique: true });
 
 const Bookmark = mongoose.model("Bookmark", bookmarkSchema);

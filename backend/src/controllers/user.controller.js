@@ -2,9 +2,9 @@ const User = require("../models/user.model");
 const { sendSuccess, sendError } = require("../utils/response");
 
 /**
- * @desc    Get user profile
- * @route   GET /api/users/profile
- * @access  Private
+ * @desc   
+ * @route 
+ * @access  
  */
 const getProfile = async (req, res, next) => {
   try {
@@ -16,9 +16,9 @@ const getProfile = async (req, res, next) => {
 };
 
 /**
- * @desc    Update user profile (name, avatar, theme, language)
- * @route   PUT /api/users/profile
- * @access  Private
+ * @desc   
+ * @route  
+ * @access  
  */
 const updateProfile = async (req, res, next) => {
   try {
@@ -41,9 +41,9 @@ const updateProfile = async (req, res, next) => {
 };
 
 /**
- * @desc    Update user interests
- * @route   PUT /api/users/interests
- * @access  Private
+ * @desc  
+ * @route   
+ * @access  
  */
 const updateInterests = async (req, res, next) => {
   try {

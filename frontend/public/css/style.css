@@ -1,32 +1,20 @@
-/* ============================================
-   FOCUSFEED - Main Stylesheet
-   Professional, Modern, Clean Design
-   ============================================ */
-
-/* CSS Variables for Theming */
 :root {
-  /* Light Theme (Default) */
   --bg-primary: #fafafa;
   --bg-secondary: #ffffff;
   --bg-tertiary: #f5f5f5;
   --bg-card: #ffffff;
   --bg-hover: #f0f0f0;
-
   --text-main: #1a1a2e;
   --text-secondary: #4a4a6a;
   --text-muted: #6b6b8a;
   --text-soft: #8a8aa8;
-
   --border-color: #e8e8ec;
   --border-light: #f0f0f4;
-
-  /* Accent Colors */
   --violet-primary: #6366f1;
   --violet-bright: #8b5cf6;
   --violet-soft: #a78bfa;
   --violet-light: #ede9fe;
   --violet-pale: #f5f3ff;
-
   --success: #10b981;
   --success-light: #d1fae5;
   --warning: #f59e0b;
@@ -35,54 +23,39 @@
   --danger-light: #fee2e2;
   --info: #3b82f6;
   --info-light: #dbeafe;
-
-  /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
   --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
   --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-
-  /* Transitions */
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
   --transition-slow: 350ms ease;
-
-  /* Border Radius */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-xl: 24px;
-
-  /* Spacing */
   --sidebar-width: 260px;
   --navbar-height: 64px;
 }
 
-/* Dark Theme */
 [data-theme="dark"], .dark-theme {
   --bg-primary: #0f0f1a;
   --bg-secondary: #16162a;
   --bg-tertiary: #1e1e3a;
   --bg-card: #1a1a35;
   --bg-hover: #252545;
-
   --text-main: #f1f1f6;
   --text-secondary: #c5c5d8;
   --text-muted: #8a8aa8;
   --text-soft: #6b6b8a;
-
   --border-color: #2a2a4a;
   --border-light: #353560;
-
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.2);
   --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5), 0 4px 6px -2px rgba(0,0,0,0.3);
   --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.6), 0 10px 10px -5px rgba(0,0,0,0.4);
 }
 
-/* ============================================
-   RESET & BASE
-   ============================================ */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -119,9 +92,6 @@ img {
   display: block;
 }
 
-/* ============================================
-   LAYOUT
-   ============================================ */
 .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -131,7 +101,7 @@ img {
 .app-layout {
   display: flex;
   min-height: calc(100vh - var(--navbar-height));
-  margin-top: var(--navbar-height); /* push below fixed navbar */
+  margin-top: var(--navbar-height);
 }
 
 .main-content {
@@ -141,9 +111,6 @@ img {
   transition: margin-left var(--transition-normal);
 }
 
-/* ============================================
-   NAVBAR
-   ============================================ */
 .navbar {
   position: fixed;
   top: 0;
@@ -212,9 +179,6 @@ img {
   box-shadow: var(--shadow-md);
 }
 
-/* ============================================
-   SIDEBAR
-   ============================================ */
 .sidebar {
   position: fixed;
   left: 0;
@@ -323,9 +287,6 @@ img {
   color: var(--text-soft);
 }
 
-/* ============================================
-   BUTTONS
-   ============================================ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -394,9 +355,6 @@ img {
   width: 100%;
 }
 
-/* ============================================
-   CARDS
-   ============================================ */
 .card {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
@@ -409,9 +367,6 @@ img {
   box-shadow: var(--shadow-md);
 }
 
-/* ============================================
-   FORMS
-   ============================================ */
 .form-group {
   margin-bottom: 20px;
 }
@@ -480,9 +435,6 @@ select.form-control {
   opacity: 1;
 }
 
-/* ============================================
-   SEARCH BAR
-   ============================================ */
 .search-bar {
   position: relative;
   display: flex;
@@ -517,9 +469,6 @@ select.form-control {
   border-color: rgba(255,255,255,0.4);
 }
 
-/* ============================================
-   BADGES
-   ============================================ */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -536,9 +485,6 @@ select.form-control {
   color: #92400e;
 }
 
-/* ============================================
-   PAGE HEADER
-   ============================================ */
 .page-header {
   display: flex;
   align-items: flex-start;
@@ -559,9 +505,6 @@ select.form-control {
   margin-top: 4px;
 }
 
-/* ============================================
-   SPINNER
-   ============================================ */
 .spinner {
   width: 40px;
   height: 40px;
@@ -575,9 +518,6 @@ select.form-control {
   to { transform: rotate(360deg); }
 }
 
-/* ============================================
-   TOAST
-   ============================================ */
 #toast-container {
   position: fixed;
   bottom: 24px;
@@ -612,9 +552,6 @@ select.form-control {
   to { opacity: 0; transform: translateX(10px); }
 }
 
-/* ============================================
-   UTILITIES
-   ============================================ */
 .hide-mobile {
   display: inline-flex;
 }
@@ -623,14 +560,10 @@ select.form-control {
 .blue { --accent: var(--info); }
 .red { --accent: var(--danger); }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 @media (max-width: 1024px) {
   .sidebar {
     transform: translateX(-100%);
   }
-
   .main-content {
     margin-left: 0;
   }
@@ -640,24 +573,17 @@ select.form-control {
   .hide-mobile {
     display: none !important;
   }
-
   .container {
     padding: 0 16px;
   }
-
   .main-content {
     padding: 20px;
   }
-
   .page-title {
     font-size: 1.4rem;
   }
 }
-/* ============================================
-   SVG ICON SIZING — FIXED
-   ============================================ */
 
-/* Base — all svg-icon images */
 img.svg-icon,
 img.svg-icon-sm,
 img.svg-icon-md,
@@ -669,22 +595,12 @@ img.svg-icon-xl {
   flex-shrink: 0;
 }
 
-/* Small — inline text, buttons, toggles, nav links */
 img.svg-icon-sm { width: 16px; height: 16px; }
-
-/* Default — general inline icons */
 img.svg-icon    { width: 20px; height: 20px; }
-
-/* Medium — role cards, preview cards */
 img.svg-icon-md { width: 24px; height: 24px; }
-
-/* Large — metric cards, feature section */
 img.svg-icon-lg { width: 28px; height: 28px; }
-
-/* Extra large — quick link cards */
 img.svg-icon-xl { width: 32px; height: 32px; }
 
-/* Sidebar link icons */
 .link-icon {
   display: inline-flex;
   align-items: center;
@@ -695,7 +611,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
 }
 .link-icon img { width: 16px; height: 16px; }
 
-/* Admin sidebar nav icons */
 .admin-nav-link img.svg-icon-sm {
   width: 16px;
   height: 16px;
@@ -703,18 +618,15 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   vertical-align: middle;
 }
 
-/* Search bar icon */
 .search-icon {
   display: flex;
   align-items: center;
 }
 .search-icon img { width: 14px; height: 14px; }
 
-/* Input toggle (eye icon) */
 .input-toggle img { width: 16px; height: 16px; opacity: 0.6; }
 .input-toggle:hover img { opacity: 1; }
 
-/* Metric card icons */
 .metric-icon {
   display: flex;
   align-items: center;
@@ -723,11 +635,8 @@ img.svg-icon-xl { width: 32px; height: 32px; }
 }
 .metric-icon img { width: 28px; height: 28px; }
 
-/* Button inline icons */
 .btn img.svg-icon-sm { width: 14px; height: 14px; }
-/* ============================================
-   HAMBURGER — DESKTOP HIDDEN, MOBILE ONLY
-   ============================================ */
+
 .hamburger-btn {
   display: none !important;
   background: none;
@@ -760,7 +669,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   .navbar .container { padding: 0 16px; }
 }
 
-/* Sidebar overlay backdrop */
 .sidebar-overlay {
   display: none;
   position: fixed;
@@ -771,7 +679,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
 }
 .sidebar-overlay.active { display: block; }
 
-/* Bottom nav — mobile only */
 .bottom-nav {
   display: none;
   position: fixed;
@@ -827,14 +734,9 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   .main-content { padding: 12px; padding-bottom: 76px; }
 }
 
-/* ============================================
-   MOBILE SEARCH BAR — full width below navbar
-   ============================================ */
 @media (max-width: 768px) {
-  /* Hide the search bar from the navbar on mobile */
   .navbar-search-wrap { display: none; }
 
-  /* Show a full-width search bar pinned just below the navbar */
   .mobile-search-bar {
     display: flex !important;
     position: fixed;
@@ -854,7 +756,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
     max-width: 100% !important;
   }
 
-  /* Override navbar white-on-purple styles for mobile search bar */
   .mobile-search-bar .search-bar input {
     background: var(--bg-secondary);
     border: 1.5px solid var(--border-color);
@@ -874,7 +775,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
     filter: none;
   }
 
-  /* Push the app-layout down to account for mobile search bar (40px bar + 8+8 padding = 56px) */
   .has-mobile-search .app-layout {
     margin-top: calc(var(--navbar-height) + 52px);
   }
@@ -888,11 +788,7 @@ img.svg-icon-xl { width: 32px; height: 32px; }
 @media (min-width: 769px) {
   .mobile-search-bar { display: none !important; }
 }
-/* ============================================
-   MOBILE FIXES — Hamburger, Sidebar, Sign Out
-   ============================================ */
 
-/* Sidebar slides in from left on mobile */
 @media (max-width: 1024px) {
   .sidebar {
     position: fixed;
@@ -918,7 +814,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   }
 }
 
-/* Feed grid — single column on small screens */
 @media (max-width: 640px) {
   .feed-grid {
     grid-template-columns: 1fr !important;
@@ -936,7 +831,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   }
 }
 
-/* Filter chips scroll horizontally on mobile */
 @media (max-width: 768px) {
   .filter-row {
     flex-wrap: nowrap !important;
@@ -949,7 +843,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   .filter-chip { flex-shrink: 0; }
 }
 
-/* Sidebar overlay */
 .sidebar-overlay {
   display: none;
   position: fixed;
@@ -962,7 +855,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   display: block;
 }
 
-/* Hamburger button — hidden on desktop, shown on mobile */
 .hamburger-btn {
   display: none !important;
   align-items: center;
@@ -985,7 +877,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   .hamburger-btn { display: flex !important; }
 }
 
-/* Bottom nav — hidden on desktop */
 .bottom-nav {
   display: none;
   position: fixed;
@@ -1034,7 +925,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   .admin-layout { padding-bottom: 60px; }
 }
 
-/* ── Sign Out in sidebar — make it visible and prominent on mobile ── */
 .sidebar-user {
   margin-top: auto;
   padding: 16px;
@@ -1044,7 +934,6 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   .sidebar-user {
     padding: 12px 16px 20px;
   }
-  /* Sign out button stands out on mobile */
   .sidebar-user .sidebar-link:last-child {
     background: rgba(239, 68, 68, 0.08) !important;
     color: #ef4444 !important;
@@ -1058,21 +947,15 @@ img.svg-icon-xl { width: 32px; height: 32px; }
   }
 }
 
-/* ============================================
-   PAGE TRANSITIONS
-   ============================================ */
 @keyframes pageFadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-/* Apply fade to body so fixed children (sidebar) stay fixed relative to viewport */
+
 body {
   animation: pageFadeIn 0.25s ease both;
 }
 
-/* ============================================
-   DARK MODE TOGGLE BUTTON
-   ============================================ */
 .theme-toggle-btn {
   width: 36px;
   height: 36px;
@@ -1095,16 +978,11 @@ body {
   filter: brightness(0) invert(1);
 }
 
-/* ============================================
-   AUTH PAGE FIXES — no navbar offset
-   ============================================ */
 .auth-page {
-  /* Override any inherited padding from body */
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
 
-/* Ensure toast is always visible on all pages */
 #toast-container {
   position: fixed !important;
   bottom: 24px !important;

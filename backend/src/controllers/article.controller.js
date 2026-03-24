@@ -48,9 +48,9 @@ const getFeed = async (req, res, next) => {
 };
 
 /**
- * @desc    Search articles by keyword
- * @route   GET /api/articles/search?q=keyword
- * @access  Private
+ * @desc    
+ * @route   
+ * @access  
  */
 const searchArticles = async (req, res, next) => {
   try {
@@ -75,9 +75,9 @@ const searchArticles = async (req, res, next) => {
 };
 
 /**
- * @desc    Get top headlines by category
- * @route   GET /api/articles/top?category=technology
- * @access  Private
+ * @desc    
+ * @route   
+ * @access  
  */
 const getTopHeadlines = async (req, res, next) => {
   try {

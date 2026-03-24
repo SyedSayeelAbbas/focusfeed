@@ -1,26 +1,9 @@
-/* ============================================
-   FOCUSFEED - Dashboard & Content Styles
-   Dashboard, Bookmarks, Article, Profile
-   ============================================ */
-
-/* ============================================
-   FEED GRID & ARTICLES
-   ============================================ */
 .feed-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
 }
 
-/* ============================================
-   ARTICLE CARD
-   Used by buildArticleCard() in utils.js
-   Classes: article-card, article-card-image,
-   article-card-image-placeholder, article-card-body,
-   article-card-meta, article-card-source, article-card-date,
-   article-card-title, article-card-desc, article-card-footer,
-   article-card-actions, btn-icon
-   ============================================ */
 .article-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -42,7 +25,6 @@
   grid-column: span 2;
 }
 
-/* Card image */
 .article-card-image {
   width: 100%;
   height: 200px;
@@ -51,7 +33,6 @@
   display: block;
 }
 
-/* ✅ FIX: was missing — shown when no image URL */
 .article-card-image-placeholder {
   width: 100%;
   height: 160px;
@@ -62,7 +43,6 @@
   font-size: 3rem;
 }
 
-/* ✅ FIX: was missing — wraps meta + title + desc */
 .article-card-body {
   padding: 18px 20px 12px;
   flex: 1;
@@ -71,7 +51,6 @@
   gap: 8px;
 }
 
-/* ✅ FIX: was missing — source + date row */
 .article-card-meta {
   display: flex;
   align-items: center;
@@ -106,7 +85,6 @@
   overflow: hidden;
 }
 
-/* ✅ FIX: was missing — description text below title */
 .article-card-desc {
   font-size: 0.85rem;
   color: var(--text-soft);
@@ -117,7 +95,6 @@
   overflow: hidden;
 }
 
-/* ✅ FIX: was missing — footer with badge + action buttons */
 .article-card-footer {
   padding: 10px 20px 14px;
   display: flex;
@@ -127,13 +104,11 @@
   margin-top: auto;
 }
 
-/* ✅ FIX: was missing — holds bookmark + open buttons */
 .article-card-actions {
   display: flex;
   gap: 6px;
 }
 
-/* ✅ FIX: was missing — icon buttons used in cards */
 .btn-icon {
   width: 32px;
   height: 32px;
@@ -183,9 +158,6 @@
   100% { background-position: -200% 0; }
 }
 
-/* ============================================
-   FILTER CHIPS
-   ============================================ */
 .filter-row {
   display: flex;
   gap: 10px;
@@ -217,9 +189,6 @@
   color: #fff;
 }
 
-/* ============================================
-   ARTICLE VIEW PAGE
-   ============================================ */
 .article-view {
   max-width: 800px;
   margin: 0 auto;
@@ -307,16 +276,12 @@
   background: var(--bg-tertiary);
 }
 
-/* ============================================
-   BOOKMARKS
-   ============================================ */
 .bookmarks-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
 
-/* Empty State */
 .empty-state {
   text-align: center;
   padding: 80px 40px;
@@ -340,9 +305,7 @@
   color: var(--text-soft);
 }
 
-/* ============================================
-   PROFILE PAGE
-   ============================================ */
+
 .profile-layout {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -405,7 +368,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Profile Tabs */
 .profile-tabs {
   display: flex;
   gap: 4px;
@@ -439,7 +401,6 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* Interest chips in profile */
 #interests-edit-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -471,7 +432,6 @@
   font-weight: 600;
 }
 
-/* Chip icon and label in interest chips */
 .chip-icon {
   font-size: 1.4rem;
   margin-bottom: 6px;
@@ -494,9 +454,6 @@
   display: block;
 }
 
-/* ============================================
-   BADGES — extra variants used in admin + profile
-   ============================================ */
 .badge-success {
   background: var(--success-light);
   color: #065f46;
@@ -512,9 +469,6 @@
   color: #1e3a8a;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 @media (max-width: 1200px) {
   .article-card.featured {
     grid-column: span 1;
@@ -570,11 +524,6 @@
   }
 }
 
-/* ============================================
-   DASHBOARD MOBILE — Feed Grid & Filter Chips
-   ============================================ */
-
-/* Feed cards: single column on mobile like bookmarks */
 @media (max-width: 600px) {
   .feed-grid {
     grid-template-columns: 1fr !important;
@@ -584,7 +533,6 @@
     grid-column: span 1 !important;
   }
 
-  /* Filter chips: wrap into rows, NOT horizontal scroll */
   .filter-row {
     flex-wrap: wrap !important;
     overflow-x: visible !important;
@@ -596,7 +544,6 @@
     padding: 7px 12px !important;
   }
 
-  /* Main content padding */
   .main-content {
     padding: 14px !important;
     padding-bottom: 80px !important;
@@ -612,7 +559,6 @@
     grid-column: span 1 !important;
   }
 
-  /* Chips wrap into rows on all mobile sizes */
   .filter-row {
     flex-wrap: wrap !important;
     overflow-x: visible !important;
@@ -623,9 +569,6 @@
   }
 }
 
-/* ============================================
-   READING TIME INDICATOR
-   ============================================ */
 .article-card-reading-time {
   font-size: 0.72rem;
   color: var(--text-soft);
@@ -640,9 +583,6 @@
   font-size: 0.65rem;
 }
 
-/* ============================================
-   READ INDICATOR
-   ============================================ */
 .article-card { position: relative; }
 .article-card.read {
   opacity: 0.6;
@@ -666,9 +606,6 @@
   border: 1px solid var(--border-color);
 }
 
-/* ============================================
-   SEARCH SUGGESTIONS DROPDOWN
-   ============================================ */
 .search-suggestions {
   position: absolute;
   top: calc(100% + 6px);
@@ -705,9 +642,6 @@
   color: var(--text-main);
 }
 
-/* ============================================
-   NOTIFICATION BADGE
-   ============================================ */
 .notif-badge {
   position: absolute;
   top: -4px;
@@ -727,9 +661,6 @@
   pointer-events: none;
 }
 
-/* ============================================
-   LAYOUT OVERFLOW FIX
-   ============================================ */
 .main-content {
   overflow-x: hidden;
   max-width: 100%;

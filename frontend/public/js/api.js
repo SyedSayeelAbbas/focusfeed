@@ -98,9 +98,6 @@ async function validateSession() {
   }
 }
 
-/* ============================================
-   AUTH
-   ============================================ */
 const Auth = {
   async register(payload) {
     const data = await apiFetch('/auth/register', { method: 'POST', body: JSON.stringify(payload) });
@@ -140,9 +137,6 @@ const Auth = {
   }
 };
 
-/* ============================================
-   USER
-   ============================================ */
 const User = {
   async getProfile() {
     return apiFetch('/users/profile');
@@ -162,9 +156,7 @@ const User = {
   }
 };
 
-/* ============================================
-   ARTICLES
-   ============================================ */
+
 const Articles = {
   async getFeed(page = 1, pageSize = 20) {
     return apiFetch(`/articles/feed?page=${page}&pageSize=${pageSize}`);
@@ -179,9 +171,7 @@ const Articles = {
   }
 };
 
-/* ============================================
-   BOOKMARKS
-   ============================================ */
+
 const Bookmarks = {
   async getAll() {
     return apiFetch('/bookmarks');
@@ -196,9 +186,7 @@ const Bookmarks = {
   }
 };
 
-/* ============================================
-   ADMIN
-   ============================================ */
+
 const Admin = {
   async getUsers() {
     return apiFetch('/admin/users');
@@ -225,17 +213,12 @@ const Admin = {
   }
 };
 
-/* ============================================
-   AUTH GUARDS — validate token with backend
-   ============================================ */
 
-// For protected user pages (dashboard, bookmarks, profile, article, interests)
 async function requireAuth() {
   if (!getToken()) {
     window.location.href = '/login.html';
     return false;
   }
-  // Verify token is still valid with the backend
   const valid = await validateSession();
   if (!valid) {
     window.location.href = '/login.html';
@@ -244,7 +227,6 @@ async function requireAuth() {
   return true;
 }
 
-// For admin-only pages
 async function requireAdmin() {
   if (!getToken()) {
     window.location.href = '/login.html';
@@ -262,9 +244,7 @@ async function requireAdmin() {
   return true;
 }
 
-/* ============================================
-   AUTO LOGOUT — Inactivity & Tab Revisit
-   ============================================ */
+
 (function () {
   const TIMEOUT     = 30 * 60 * 1000;
   const WARN_BEFORE =  2 * 60 * 1000;

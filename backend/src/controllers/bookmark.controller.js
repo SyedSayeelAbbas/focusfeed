@@ -2,9 +2,9 @@ const Bookmark = require("../models/bookmark.model");
 const { sendSuccess, sendError } = require("../utils/response");
 
 /**
- * @desc    Get all bookmarks for the logged-in user
- * @route   GET /api/bookmarks
- * @access  Private
+ * @desc    
+ * @route   
+ * @access  
  */
 const getBookmarks = async (req, res, next) => {
   try {
@@ -21,9 +21,9 @@ const getBookmarks = async (req, res, next) => {
 };
 
 /**
- * @desc    Add an article to bookmarks
- * @route   POST /api/bookmarks
- * @access  Private
+ * @desc    
+ * @route   
+ * @access  
  */
 const addBookmark = async (req, res, next) => {
   try {
@@ -62,9 +62,9 @@ const addBookmark = async (req, res, next) => {
 };
 
 /**
- * @desc    Remove a bookmark
- * @route   DELETE /api/bookmarks/:id
- * @access  Private
+ * @desc    
+ * @route  
+ * @access  
  */
 const removeBookmark = async (req, res, next) => {
   try {

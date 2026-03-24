@@ -1,8 +1,3 @@
-/* ============================================
-   FOCUSFEED — Utility Helpers
-   ============================================ */
-
-/* ── Toast Notifications ── */
 function showToast(message, type = 'default') {
   let container = document.getElementById('toast-container');
   if (!container) {
@@ -18,7 +13,6 @@ function showToast(message, type = 'default') {
   setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(20px)'; toast.style.transition = '0.3s'; setTimeout(() => toast.remove(), 300); }, 3500);
 }
 
-/* ── Date Formatter ── */
 function formatDate(dateStr) {
   if (!dateStr) return '';
   const d = new Date(dateStr);
@@ -32,13 +26,11 @@ function formatDate(dateStr) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-/* ── Truncate Text ── */
 function truncate(str, len = 120) {
   if (!str) return '';
   return str.length > len ? str.slice(0, len) + '…' : str;
 }
 
-/* ── Set Button Loading State ── */
 function setLoading(btn, loading, text = '') {
   if (loading) {
     btn._originalText = btn.innerHTML;
@@ -50,7 +42,6 @@ function setLoading(btn, loading, text = '') {
   }
 }
 
-/* ── Category Icons ── */
 const CATEGORY_SVG = {
   technology:      'Technology',
   science:         'Science',
@@ -78,8 +69,6 @@ function categoryIcon(cat) {
   return `<img src="/icons/${name}.svg" class="svg-icon svg-icon-sm" alt="${cat || 'general'}" style="vertical-align:middle">`;
 }
 
-
-/* ── Reading Time Estimate ── */
 function readingTime(text) {
   if (!text) return '1 min read';
   const words = text.trim().split(/\s+/).length;
@@ -87,7 +76,6 @@ function readingTime(text) {
   return `${mins} min read`;
 }
 
-/* ── Read Articles Tracker ── */
 function markAsRead(articleId) {
   const read = JSON.parse(localStorage.getItem('ff_read') || '[]');
   if (!read.includes(articleId)) {
@@ -100,7 +88,6 @@ function isRead(articleId) {
   return read.includes(articleId);
 }
 
-/* ── Reading History ── */
 function addToHistory(article) {
   if (!article || !article.articleId) return;
   const history = JSON.parse(localStorage.getItem('ff_history') || '[]');
@@ -120,7 +107,6 @@ function getHistory() {
   return JSON.parse(localStorage.getItem('ff_history') || '[]');
 }
 
-/* ── Build Article Card HTML ── */
 function buildArticleCard(article, index = 0) {
   const isFeatured = index === 0;
   const imgHtml = article.urlToImage
@@ -151,7 +137,6 @@ function buildArticleCard(article, index = 0) {
     </div>`;
 }
 
-/* ── Store current articles in session for article.html ── */
 let _articleCache = {};
 
 function cacheArticle(article) {
@@ -165,7 +150,6 @@ function getCachedArticle(id) {
   return _articleCache[id] || null;
 }
 
-/* ── Init user display in navbar ── */
 function initNavUser() {
   const user = getUser();
   if (!user) return;
